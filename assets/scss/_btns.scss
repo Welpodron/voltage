@@ -1,0 +1,45 @@
+@import "utils";
+
+.v-btn {
+    cursor: pointer;
+    display: inline-flex;
+    text-align: left;
+    align-items: center;
+    border: var(--#{$prefix}-size-0);
+    border-radius: var(--#{$prefix}-size-4);
+    padding: var(--#{$prefix}-size-8);
+    justify-content: space-between;
+    background: transparent;
+}
+
+.v-btn__icon {
+    flex-shrink: 0;
+    margin-left: var(--#{$prefix}-size-8);
+}
+
+.v-btn--primary {
+    background: var(--#{$prefix}-violet-7);
+    color: var(--#{$prefix}-gray-1);
+}
+
+.v-btn--danger {
+    background: var(--#{$prefix}-red-8);
+}
+
+.v-btn--full {
+    width: var(--#{$prefix}-size-100-p);
+}
+
+.v-btn--secondary {
+    background: var(--#{$prefix}-gray-2);
+}
+
+[data-btn-scroll-to-top] {
+    position: fixed;
+    right: var(--#{$prefix}-size-32);
+    bottom: var(--#{$prefix}-size-32);
+}
+
+[data-btn-theme-switcher] > * {
+    pointer-events: none !important;
+}

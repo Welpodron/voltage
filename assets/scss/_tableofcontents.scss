@@ -1,0 +1,54 @@
+@import "utils";
+
+.v-table-of-contests {
+    border-left: var(--#{$prefix}-size-2) solid var(--#{$prefix}-gray-2);
+    padding: var(--#{$prefix}-size-32);
+    position: sticky;
+    overflow: visible;
+    max-height: calc(var(--#{$prefix}-size-view-h) - var(--#{$prefix}-size-16));
+    top: var(--#{$prefix}-size-16);
+
+    min-width: var(--#{$prefix}-size-256);
+    width: var(--#{$prefix}-size-256);
+    flex-shrink: var(--#{$prefix}-size-0);
+    max-width: var(--#{$prefix}-size-256);
+
+    font-weight: var(--#{$prefix}-font-weight-5);
+}
+
+.v-table-of-contests__container {
+    width: var(--#{$prefix}-size-100-p);
+    height: var(--#{$prefix}-size-100-p);
+    overflow-y: auto;
+}
+
+.v-table-of-contests__list {
+    margin-left: 0;
+    list-style: none;
+    display: grid;
+    gap: var(--#{$prefix}-size-16);
+}
+
+.v-table-of-contests__nav {
+    display: grid;
+    gap: var(--#{$prefix}-size-16);
+}
+
+.v-table-of-contests__item {
+    display: grid;
+    gap: var(--#{$prefix}-size-16);
+}
+
+.v-table-of-contests__list .v-table-of-contests__list {
+    padding-left: var(--#{$prefix}-size-16);
+}
+
+.v-table-of-contests__link {
+    display: block;
+    padding: var(--#{$prefix}-size-8);
+}
+
+.v-table-of-contests__link[aria-current] {
+    color: var(--#{$prefix}-theme-brand);
+    background: var(--#{$prefix}-theme-surface-2);
+}

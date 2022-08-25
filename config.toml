@@ -1,0 +1,10 @@
+baseURL = 'example.com'
+languageCode = 'ru'
+title = 'My New Hugo Site'
+[build]
+  noJSConfigInAssets = true
+[markup]
+  [markup.highlight]
+    noClasses = false
+[markup.goldmark.renderer]
+  unsafe = true

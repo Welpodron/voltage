@@ -1,0 +1,31 @@
+@import "utils";
+
+:where(html) {
+    --#{$prefix}-size-0: 0;
+
+    $i: 1;
+
+    @while $i <= 1024 {
+      --#{$prefix}-size-#{$i}: #{$i + 'px'};
+      ---#{$prefix}-size-#{$i}: #{-$i + 'px'};
+      $i: $i * 2; 
+    }
+
+    $i: 10;
+    @while $i <= 100 {
+      --#{$prefix}-size-#{$i}-p: #{$i + '%'};
+      ---#{$prefix}-size-#{$i}-p: #{-$i + '%'};
+      $i: $i + 10;
+    }
+
+    --#{$prefix}-size-view-w: 100vw;
+    --#{$prefix}-size-view-h: 100vh;
+
+    --#{$prefix}-size-xxs-px: 240px;
+    --#{$prefix}-size-xs-px: 360px;
+    --#{$prefix}-size-sm-px: 480px;
+    --#{$prefix}-size-md-px: 768px;
+    --#{$prefix}-size-lg-px: 1024px;
+    --#{$prefix}-size-xl-px: 1440px;
+    --#{$prefix}-size-xxl-px: 1920px;
+}

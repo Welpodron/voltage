@@ -1,0 +1,61 @@
+@import "utils";
+@import "colors";
+@import "fonts";
+@import "sizes";
+@import "shadows";
+
+@import "normalize";
+@import "reset";
+
+@import "btns";
+
+@import "shell";
+@import "sidebar";
+@import "content";
+@import "breadcrumbs";
+
+@import "highlight";
+
+* {
+    box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+    width: var(--#{$prefix}-size-16);
+    height: var(--#{$prefix}-size-16);
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--#{$prefix}-gray-1);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--#{$prefix}-gray-4);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--#{$prefix}-font-family-sans);
+    line-height: var(--#{$prefix}-font-lineheight-2);
+    color: var(--#{$prefix}-theme-text-1);
+    background-color: var(--#{$prefix}-theme-surface-1);
+}
+
+h1 {
+    font-size: var(--#{$prefix}-font-size-7);
+    font-weight: var( --#{$prefix}-font-weight-7);
+}
+
+h2 {
+    font-size: var(--#{$prefix}-font-size-5);
+    font-weight: var( --#{$prefix}-font-weight-7);  
+}
+
+@import "alert";
+@import "highlight";
+@import "tooltip";
+@import "collapse";
+@import "tableofcontents";

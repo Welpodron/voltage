@@ -1,0 +1,66 @@
+<ul class="v-sidebar__list">
+  {{range $.context.Pages}}
+  <li class="v-sidebar__item">
+    {{if .IsSection}} {{ $random := delimit (shuffle (split (md5 "") "" )) "" }}
+    <button
+      class="v-btn v-btn--full v-sidebar__btn-collapse"
+      data-collapse-action="toggle"
+      type="button"
+      data-collapse-id="collapse_{{ $random }}"
+      {{if
+      in
+      $.currentPageLink
+      .Permalink
+      }}aria-expanded="true"
+      {{end}}
+    >
+      <p class="v-btn__text v-sidebar__btn-collapse-text">
+        {{if .Params.icon}}
+        <img
+          class="v-sidebar__btn-collapse-icon-left"
+          width="20"
+          height="20"
+          src="/{{.Params.icon}}"
+        />
+        {{end}}
+        <span>{{.Title}}</span>
+      </p>
+      <svg
+        class="v-btn__icon v-sidebar__btn-collapse-icon-right"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        width="24"
+        height="24"
+        stroke-width="1.5"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+        />
+      </svg>
+    </button>
+    <div
+      {{if
+      in
+      $.currentPageLink
+      .Permalink
+      }}data-collapse-active{{end}}
+      data-collapse
+      id="collapse_{{ $random }}"
+    >
+      {{ partial "sidebar-menu.html" (dict "currentPageLink" $.currentPageLink
+      "context" .) }}
+    </div>
+    {{else}}
+    <a
+      class="v-sidebar__link {{if in $.currentPageLink .Permalink}}v-sidebar__link--active{{end}}"
+      href="{{ .RelPermalink }}"
+      >{{ .Title }}</a
+    >
+    {{end}}
+  </li>
+  {{end}}
+</ul>

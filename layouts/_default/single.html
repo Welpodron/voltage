@@ -1,0 +1,16 @@
+{{ define "main" }}
+<section id="main">
+  {{ partial "breadcrumbs.html" .}}
+  <h1 id="title">{{ .Title }}</h1>
+  <div>
+    <article id="content">{{ .Content }}</article>
+  </div>
+</section>
+<aside class="v-table-of-contests">
+  <div class="v-table-of-contests__container">
+    <nav class="v-table-of-contests__nav" data-table-of-contests>
+      <p>На этой странице:</p>
+    </nav>
+  </div>
+</aside>
+{{ end }}

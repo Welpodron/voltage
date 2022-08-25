@@ -1,0 +1,30 @@
+@import "utils";
+
+:where(html) {
+    --#{$prefix}-font-family-sans: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
+    --#{$prefix}-font-family-serif: ui-serif,serif;
+    --#{$prefix}-font-family-mono: Dank Mono,Operator Mono,Inconsolata,Fira Mono,ui-monospace,SF Mono,Monaco,Droid Sans Mono,Source Code Pro,monospace;
+    
+    @for $i from 1 through 9 {
+      --#{$prefix}-font-weight-#{$i}: #{$i*100};
+    }
+
+    --#{$prefix}-font-lineheight-00: .95;
+    --#{$prefix}-font-lineheight-0: 1.1;
+    --#{$prefix}-font-lineheight-1: 1.25;
+    --#{$prefix}-font-lineheight-2: 1.375;
+    --#{$prefix}-font-lineheight-3: 1.5;
+    --#{$prefix}-font-lineheight-4: 1.75;
+    --#{$prefix}-font-lineheight-5: 2;
+    
+    --#{$prefix}-font-size-00: .5rem;
+    --#{$prefix}-font-size-0: .75rem;
+    --#{$prefix}-font-size-1: 1rem;
+    --#{$prefix}-font-size-2: 1.1rem;
+    --#{$prefix}-font-size-3: 1.25rem;
+    --#{$prefix}-font-size-4: 1.5rem;
+    --#{$prefix}-font-size-5: 2rem;
+    --#{$prefix}-font-size-6: 2.5rem;
+    --#{$prefix}-font-size-7: 3rem;
+    --#{$prefix}-font-size-8: 3.5rem;
+  }

@@ -1,0 +1,26 @@
+@import "utils";
+
+.v-shell {
+    display: grid;
+    min-height: var(--#{$prefix}-size-view-h);
+    grid-template-rows: auto 1fr auto;
+}
+
+.v-shell__header {
+    padding: var(--#{$prefix}-size-32);
+    background-color: var(--#{$prefix}-theme-surface-2);
+    display: flex;
+    justify-content: end;
+}
+
+.v-shell__body {
+    display: flex;
+    gap: var(--#{$prefix}-size-64);
+    padding: var(--#{$prefix}-size-32) 0;
+}
+
+.v-shell__footer {
+    padding: var(--#{$prefix}-size-32);
+    background-color: var(--#{$prefix}-theme-surface-2);
+    text-align: center;
+}

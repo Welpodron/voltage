@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    {{ $style := resources.Get "scss/docs.scss" | toCSS | minify }}
+    <link rel="stylesheet" href="{{ $style.Permalink }}" />
+  </head>
+  <body>
+    <div class="v-shell">
+      {{ partial "shell-header.html" .}}
+      <main class="v-shell__body">
+        <aside class="v-sidebar" data-sidebar>
+          <div class="v-sidebar__container">
+            <nav class="v-sidebar__nav">
+              <p>Навигация:</p>
+              {{ partial "sidebar-menu.html" (dict "currentPageLink"
+              $.Page.Permalink "context" .FirstSection) }}
+            </nav>
+            <button class="v-btn v-btn--secondary" data-btn-sidebar-resizer>
+              <svg
+                width="24"
+                height="24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 2v20"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="m18.31 16.13 4.07-4.07m0 0L18.3 8m4.07 4.06H15M5.69 16.13l-4.07-4.07m0 0L5.7 8m-4.07 4.06H9"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
+        </aside>
+        {{ block "main" . }} {{ end }}
+      </main>
+      {{ partial "shell-footer.html" .}}
+    </div>
+    <button
+      aria-label="Пролистать наверх страницы"
+      data-btn-scroll-to-top
+      class="v-btn v-btn--secondary"
+      type="button"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M5 15l7-7 7 7"
+        />
+      </svg>
+    </button>
+  </body>
+  {{ $js := resources.Get "ts/index.ts" | js.Build }}
+  <script src="{{ $js.Permalink }}" defer></script>
+</html>

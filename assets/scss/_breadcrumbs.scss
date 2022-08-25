@@ -1,0 +1,41 @@
+@import "utils";
+
+.v-breadcrumbs__list {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: var(--#{$prefix}-font-size-0);
+    line-height: 1;
+}
+
+.v-breadcrumbs__item  {
+    display: inline-flex;
+    align-items: center;
+}
+
+.v-breadcrumbs__item:not(:last-of-type)::after {
+    content: "";
+    background-image: url("data:image/svg+xml,%3Csvg width='14' height='26' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m1 25 12-12L1 1' stroke='%23000' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: var(--#{$prefix}-font-size-0);
+    height: var(--#{$prefix}-font-size-0);
+    display: inline-block;
+    transform: translateY(var(--#{$prefix}-size-1));
+}
+
+.v-breadcrumbs__item--active {
+    color: var(--#{$prefix}-theme-brand);
+    font-weight: var(--#{$prefix}-font-weight-7);
+}
+
+.v-breadcrumbs__link {
+    display: inline-block;
+    padding: var(--#{$prefix}-size-8);
+    border-radius: var(--#{$prefix}-size-16);
+    margin: var(--#{$prefix}-size-8);
+}
+
+.v-breadcrumbs__link--active {
+    background: var(--#{$prefix}-gray-1);
+}
