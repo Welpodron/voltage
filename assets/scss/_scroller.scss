@@ -1,0 +1,13 @@
+[data-scroller] {
+    opacity: 0;
+    visibility: hidden;
+    position: fixed;
+    right: var(--#{$prefix}-size-32);
+    bottom: var(--#{$prefix}-size-32);
+    transition: visibility 0.2s ease, opacity 0.2s ease;
+}
+
+[data-scroller][data-scroller-active] {
+    opacity: 1;
+    visibility: visible;
+}

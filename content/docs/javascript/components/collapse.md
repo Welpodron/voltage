@@ -8,6 +8,56 @@ draft: false
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac maximus sem, sed tempor sem. Fusce finibus augue tortor, feugiat condimentum mi ultricies ac. Maecenas imperdiet posuere tortor, sit amet auctor lacus interdum non. In ac orci id nunc auctor pellentesque vitae eget dui. Nunc convallis lacus sit amet urna posuere facilisis eget facilisis purus. Phasellus blandit lobortis tellus sed laoreet. Donec venenatis sollicitudin dolor tempus semper. Nulla suscipit accumsan risus eu scelerisque. Proin fringilla placerat placerat. Aenean consequat sapien sapien, eget dapibus sapien auctor et. Nam nec vestibulum odio, sit amet lacinia tellus.
 
+<button data-popover-action="show" data-popover-id="popover_example_01" class="v-btn v-btn--primary" type="button">Open popover</button>
+
+<dialog data-popover id="popover_example_01">
+  <button class="v-btn v-btn--primary" type="button">Hello from popover</button>
+  <button class="v-btn v-btn--danger" type="button">Example</button>
+  <button class="v-btn v-btn--secondary" type="button">Some popover action</button>
+</dialog>
+
+<div data-tabs id="tabs_example_01" class="v-tabs">
+<div class="v-tabs__header">
+<ul data-tabs-tablist class="v-tabs__btns">
+<li class="v-tabs__btns-item">
+<button data-tabs-tablist-item="0" data-tabs-action="show" data-tabs-action-args="0" data-tabs-id="tabs_example_01" class="v-tabs__btn v-tabs__btn--active" type="button">Tab 01</button>
+</li>
+<li class="v-tabs__btns-item">
+<button data-tabs-tablist-item="1" data-tabs-action="show" data-tabs-action-args="1" data-tabs-id="tabs_example_01" class="v-tabs__btn" type="button">Tab 02</button>
+</li>
+<li class="v-tabs__btns-item">
+<button data-tabs-tablist-item="2" data-tabs-action="show" data-tabs-action-args="2" data-tabs-id="tabs_example_01" class="v-tabs__btn" type="button">Tab 03</button>
+</li>
+</ul>
+</div>
+<div class="v-tabs__body">
+<ul class="v-tabs__panels">
+<li data-tabs-item class="v-tabs__panel">
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac maximus sem, sed tempor sem. Fusce finibus augue tortor, feugiat condimentum mi ultricies ac. Maecenas imperdiet posuere tortor, sit amet auctor lacus interdum non. In ac orci id nunc auctor pellentesque vitae eget dui. Nunc convallis lacus sit amet urna posuere facilisis eget facilisis purus. Phasellus blandit lobortis tellus sed laoreet. Donec venenatis sollicitudin dolor tempus semper. Nulla suscipit accumsan risus eu scelerisque. Proin fringilla placerat placerat. Aenean consequat sapien sapien, eget dapibus sapien auctor et. Nam nec vestibulum odio, sit amet lacinia tellus.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac maximus sem, sed tempor sem. Fusce finibus augue tortor, feugiat condimentum mi ultricies ac. Maecenas imperdiet posuere tortor, sit amet auctor lacus interdum non. In ac orci id nunc auctor pellentesque vitae eget dui. Nunc convallis lacus sit amet urna posuere facilisis eget facilisis purus. Phasellus blandit lobortis tellus sed laoreet. Donec venenatis sollicitudin dolor tempus semper. Nulla suscipit accumsan risus eu scelerisque. Proin fringilla placerat placerat. Aenean consequat sapien sapien, eget dapibus sapien auctor et. Nam nec vestibulum odio, sit amet lacinia tellus.
+
+</li>
+<li data-tabs-item class="v-tabs__panel">
+Nunc convallis lacus sit amet urna posuere facilisis eget facilisis purus. Phasellus blandit lobortis tellus sed laoreet. Donec venenatis sollicitudin dolor tempus semper. Nulla suscipit accumsan risus eu scelerisque. Proin fringilla placerat placerat. Aenean consequat sapien sapien, eget dapibus sapien auctor et. Nam nec vestibulum odio, sit amet lacinia tellus.
+
+</li>
+</ul>
+</div>
+</div>
+
+<div class="v-collapse-box">
+<div class="v-collapse-box__header">
+<button class="v-collapse-box__btn" type="button"><span>Collapse box 01</span>
+<svg class="v-collapse-box__btn-icon-right" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="24" height="24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
+      </svg></button>
+</div>
+<div class="v-collapse-box__body">
+<p>Curabitur at pellentesque quam. Nam magna turpis, bibendum eget molestie eget, pulvinar ut nunc. Donec at efficitur nisl. Pellentesque eget aliquet felis. Vivamus sed luctus erat. Pellentesque egestas tortor elit, in mollis sapien lobortis non. Fusce venenatis nec mi nec vulputate. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed ex metus, luctus non mollis et, gravida eget leo. Integer vel tortor in justo molestie malesuada in eget felis. Donec urna eros, blandit et commodo vitae, bibendum nec dui. Integer laoreet imperdiet sapien, non laoreet ante.</p>
+</div>
+</div>
+
 <div class="v-alert v-alert--danger">
 <div class="v-alert__header">
 <span class="v-alert__title">Внимание</span>

@@ -54,6 +54,9 @@ h2 {
     font-weight: var( --#{$prefix}-font-weight-7);  
 }
 
+@import "scroller";
+@import "tabs";
+@import "popover";
 @import "alert";
 @import "highlight";
 @import "tooltip";

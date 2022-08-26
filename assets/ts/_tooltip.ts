@@ -2,117 +2,129 @@ export interface ITooltipConfig {
   tooltipElTagName?: keyof HTMLElementTagNameMap;
   tooltipElClass?: string;
   tooltipYOffset?: number;
+  isTooltipFixed?: boolean;
 }
 
 export class Tooltip {
-  element: Element | HTMLElement;
-  tooltip?: Element | HTMLElement;
+  control: Element | HTMLElement;
+  element?: HTMLElement;
   isHovering: boolean = false;
   isFocused: boolean = false;
   isTranslating: boolean = false;
+  isTooltipFixed: boolean = false;
   tooltipElClass?: string;
   tooltipElTagName: keyof HTMLElementTagNameMap = "span";
   tooltipYOffset: number = 5;
 
-  constructor(element: Element | HTMLElement, config: ITooltipConfig = {}) {
-    this.element = element;
+  constructor(control: Element | HTMLElement, config: ITooltipConfig = {}) {
+    this.control = control;
 
     this.tooltipElClass = config.tooltipElClass;
     this.tooltipElTagName = config.tooltipElTagName ?? this.tooltipElTagName;
     this.tooltipYOffset = config.tooltipYOffset ?? this.tooltipYOffset;
+    // TODO: add fixed position support
+    this.isTooltipFixed = this.control.hasAttribute("data-tooltip-fixed");
 
     this.initEventListeners();
   }
 
   initEventListeners = () => {
-    this.element.addEventListener("mouseenter", this.handleMouseEnter);
-    this.element.addEventListener("mouseleave", this.handleMouseLeave);
-    this.element.addEventListener("focusin", this.handleFocusIn);
-    this.element.addEventListener("focusout", this.handleFocusOut);
+    this.control.addEventListener("mouseenter", this.handleMouseEnter);
+    this.control.addEventListener("mouseleave", this.handleMouseLeave);
+    this.control.addEventListener("focusin", this.handleFocusIn);
+    this.control.addEventListener("focusout", this.handleFocusOut);
   };
 
   add = () => {
-    if (this.isTranslating && this.tooltip) return;
+    if (this.isTranslating || this.element) return;
+
     this.isTranslating = true;
 
     const tooltip = document.createElement(this.tooltipElTagName);
 
-    this.tooltip = tooltip;
+    this.element = tooltip;
 
-    let { top, left, width, height } = this.element.getBoundingClientRect();
+    let {
+      top: controlTop,
+      left: controlLeft,
+      width: controlWidth,
+      height: controlHeight,
+    } = this.control.getBoundingClientRect();
 
-    top += window.scrollY;
-    left += window.scrollX;
+    controlTop += window.scrollY;
+    controlLeft += window.scrollX;
 
-    tooltip.textContent = this.element.ariaLabel;
-    tooltip.setAttribute("data-tooltip-control", "");
+    this.element.textContent = this.control.ariaLabel;
+    this.element.setAttribute("data-tooltip-control", "");
 
     if (this.tooltipElClass) {
-      tooltip.classList.add(this.tooltipElClass);
+      this.element.classList.add(this.tooltipElClass);
     }
 
-    let tooltipLeft = left;
-    let tooltipTop = top + height + this.tooltipYOffset;
+    this.element.style.left = controlLeft + controlWidth + "px";
+    this.element.style.top =
+      controlTop + controlHeight + this.tooltipYOffset + "px";
 
-    tooltip.style.top = tooltipTop + "px";
-    tooltip.style.left = tooltipLeft + "px";
+    this.element.style.opacity = "0";
+    this.element.style.transition = "opacity 0.2s ease";
 
-    tooltip.style.opacity = "0";
-    tooltip.style.transition = "opacity 0.15s ease";
+    document.body.appendChild(this.element);
 
-    document.body.appendChild(tooltip);
+    const {
+      width: elementWidth,
+      height: elementHeight,
+      left: elementLeft,
+      top: elementTop,
+    } = this.element.getBoundingClientRect();
 
-    let tooltipDOMRect = tooltip.getBoundingClientRect();
-    let tooltipWidth = tooltipDOMRect.width;
-    let tooltipHeight = tooltipDOMRect.height;
-    let currentTooltipTop = tooltipDOMRect.top;
-    let currentTooltipLeft = tooltipDOMRect.left;
-
-    if (currentTooltipLeft + tooltipWidth > window.innerWidth) {
-      tooltip.style.left = tooltipLeft - tooltipWidth + width + "px";
+    if (elementLeft + elementWidth > window.innerWidth) {
+      tooltip.style.left =
+        elementLeft + window.scrollX - controlWidth - elementWidth + "px";
     }
 
-    if (currentTooltipTop + tooltipHeight > window.innerHeight) {
-      tooltip.style.top =
-        tooltipTop -
-        tooltipHeight -
-        height -
+    if (elementTop + elementHeight + this.tooltipYOffset > window.innerHeight) {
+      this.element.style.top =
+        elementTop +
+        window.scrollY -
+        elementHeight -
+        controlHeight -
         this.tooltipYOffset -
         this.tooltipYOffset +
         "px";
     }
 
-    tooltip.style.opacity = "1";
+    this.element.style.opacity = "1";
 
-    (<HTMLElement>this.tooltip).addEventListener(
-      "transitionend",
-      () => {
-        this.isTranslating = false;
-      },
-      {
-        once: true,
-      }
-    );
-  };
-
-  remove = () => {
-    if (this.isTranslating && !this.tooltip) return;
-    this.isTranslating = true;
-    // TODO: Fix because sometimes it is bugging out
-    if (this.tooltip) {
-      (<HTMLElement>this.tooltip).style.opacity = "0";
-      (<HTMLElement>this.tooltip).addEventListener(
+    setTimeout(() => {
+      this.element?.addEventListener(
         "transitionend",
         () => {
           this.isTranslating = false;
-          this.tooltip?.remove();
-          this.tooltip = undefined;
         },
-        {
-          once: true,
-        }
+        { once: true }
       );
-    }
+      this.element?.dispatchEvent(new TransitionEvent("transitionend"));
+    }, parseFloat(window.getComputedStyle(this.element).transitionDuration) * 1000);
+  };
+
+  remove = () => {
+    if (!this.element || this.isTranslating) return;
+    this.isTranslating = true;
+
+    this.element.style.opacity = "0";
+
+    setTimeout(() => {
+      this.element?.addEventListener(
+        "transitionend",
+        () => {
+          this.element?.remove();
+          this.element = undefined;
+          this.isTranslating = false;
+        },
+        { once: true }
+      );
+      this.element?.dispatchEvent(new TransitionEvent("transitionend"));
+    }, parseFloat(window.getComputedStyle(this.element).transitionDuration) * 1000);
   };
 
   handleFocusOut = (evt: Event) => {

@@ -34,12 +34,6 @@
     background: var(--#{$prefix}-gray-2);
 }
 
-[data-btn-scroll-to-top] {
-    position: fixed;
-    right: var(--#{$prefix}-size-32);
-    bottom: var(--#{$prefix}-size-32);
-}
-
 [data-btn-theme-switcher] > * {
     pointer-events: none !important;
 }

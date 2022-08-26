@@ -1,0 +1,7 @@
+@import "utils";
+
+[data-popover] {
+    margin: 0 !important;
+    position: absolute;
+    max-width: var(--#{$prefix}-size-256);
+}

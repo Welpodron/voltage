@@ -1,3 +1,5 @@
+@import "utils";
+
 [data-collapse] {
     display: none;
 }
@@ -12,4 +14,33 @@
     overflow: hidden;
 
     transition: height 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.v-collapse-box {
+
+}
+
+// Изменить цвет у активного элемента! см пример с табами
+.v-collapse-box__btn {
+    width: var(--#{$prefix}-size-100-p);
+    padding: var(--#{$prefix}-size-16);
+    background: var(--#{$prefix}-theme-surface-3);
+    display: flex;
+    align-items: center;
+    border: 0;
+}
+
+.v-collapse-box__btn-icon-right {
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.v-collapse-box__header {
+    font-weight: var(--#{$prefix}-font-weight-5);  
+    background: var(--#{$prefix}-theme-surface-3);
+}
+
+.v-collapse-box__body {
+    padding: var(--#{$prefix}-size-16);
+    background: var(--#{$prefix}-theme-surface-2);
 }

@@ -1,13 +1,20 @@
-import { BtnThemeSwitcher, BtnScrollToTop, BtnSidebarResizer } from "./_btns";
+import { BtnThemeSwitcher, BtnSidebarResizer } from "./_btns";
 import { Collapse, ICollapseHTMLElement } from "./_collapse";
+import { Popover } from "./_popover";
+import { Scroller } from "./_scroller";
 import { TableOfContents } from "./_tableofcontents";
+import { Tabs } from "./_tabs";
 import { Tooltip } from "./_tooltip";
 
 document.addEventListener(
   "DOMContentLoaded",
   () => {
-    document.querySelectorAll("[data-btn-scroll-to-top]").forEach((element) => {
-      new BtnScrollToTop(element);
+    document.querySelectorAll("[data-scroller]").forEach((element) => {
+      new Scroller(<HTMLElement>element);
+    });
+
+    document.querySelectorAll("[data-tabs]").forEach((element) => {
+      new Tabs(<HTMLElement>element);
     });
 
     document
@@ -30,6 +37,10 @@ document.addEventListener(
       .forEach((element) => {
         new Tooltip(element, { tooltipElClass: "v-tooltip" });
       });
+
+    document.querySelectorAll("dialog[data-popover]").forEach((element) => {
+      new Popover(<HTMLDialogElement>element);
+    });
 
     document.querySelectorAll("[data-table-of-contests]").forEach((element) => {
       new TableOfContents(element, {

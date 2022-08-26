@@ -1,25 +1,5 @@
 import { ThemeSwitcher, ThemeSwitcherType } from "./_context";
 
-export class BtnScrollToTop {
-  element: Element | HTMLElement;
-
-  constructor(element: Element | HTMLElement) {
-    this.element = element;
-
-    this.initEventListeners();
-  }
-
-  initEventListeners = () => {
-    this.element.addEventListener("click", this.handleClick);
-  };
-
-  handleClick = (evt: Event) => {
-    evt.preventDefault();
-
-    window.scroll({ top: 0, behavior: "smooth" });
-  };
-}
-
 export class BtnThemeSwitcher {
   element: Element | HTMLElement;
   switcher: ThemeSwitcherType;
