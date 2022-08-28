@@ -1,3 +1,3 @@
 ---
-title: "modules"
+title: "Модули"
 ---

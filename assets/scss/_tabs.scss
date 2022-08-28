@@ -13,6 +13,7 @@
 
 .v-tabs__btns {
     display: flex;
+    overflow-x: auto;
 }
 
 .v-tabs__body {
@@ -26,6 +27,8 @@
 .v-tabs__btns-item {
     // flex: 1;
     display: flex;
+    flex-basis: var(--#{$prefix}-size-128);
+    flex-shrink: 0;
 }
 
 .v-tabs__btn {
@@ -37,15 +40,21 @@
 }
 
 .v-tabs__btn[aria-selected="true"] {
-    color: var(--#{$prefix}-theme-brand);
+    // color: var(--#{$prefix}-theme-brand);
     background: var(--#{$prefix}-theme-surface-4);
-    border-left: var(--#{$prefix}-size-16) solid var(--#{$prefix}-theme-brand);
+    border-left: var(--#{$prefix}-size-16) solid var(--#{$prefix}-theme-text-1);
+    // border-left: var(--#{$prefix}-size-16) solid var(--#{$prefix}-theme-brand);
 }
 
 [data-tabs-item] {
     display: none;
+    transition: opacity 0.4s ease;
 }
 
 [data-tabs-item][data-tabs-item-active] {
     display: block;
+}
+
+[data-tabs-item]:not([data-tabs-item-showing]) {
+    opacity: 0;
 }

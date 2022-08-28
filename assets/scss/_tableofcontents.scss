@@ -1,6 +1,7 @@
 @import "utils";
 
 .v-table-of-contests {
+    display: none;
     border-left: var(--#{$prefix}-size-2) solid var(--#{$prefix}-gray-2);
     padding: var(--#{$prefix}-size-32);
     position: sticky;
@@ -14,6 +15,12 @@
     max-width: var(--#{$prefix}-size-256);
 
     font-weight: var(--#{$prefix}-font-weight-5);
+}
+
+@media (min-width: 1200px) {
+    .v-table-of-contests {
+        display: block;
+    } 
 }
 
 .v-table-of-contests__container {

@@ -1,3 +1,5 @@
+import { Animation } from "./_utils";
+
 export class Tabs {
   element: HTMLElement;
   controls: Array<HTMLElement>;
@@ -6,6 +8,10 @@ export class Tabs {
   tablistItems: Array<HTMLElement>;
   currentTablistItem: HTMLElement;
   currentItem: HTMLElement;
+  previousItem: HTMLElement;
+
+  previousItemAnimation?: Animation;
+  nextItemAnimation?: Animation;
 
   constructor(element: HTMLElement) {
     this.element = element;
@@ -25,10 +31,16 @@ export class Tabs {
     });
 
     this.items.forEach((item) => {
-      this.currentItem === item
-        ? item.setAttribute("data-tabs-item-active", "")
-        : item.removeAttribute("data-tabs-item-active");
+      if (this.currentItem === item) {
+        item.setAttribute("data-tabs-item-active", "");
+        item.setAttribute("data-tabs-item-showing", "");
+      } else {
+        item.removeAttribute("data-tabs-item-active");
+        item.removeAttribute("data-tabs-item-showing");
+      }
     });
+
+    this.previousItem = this.currentItem;
 
     this.controls = <Array<HTMLElement>>[
       ...document.querySelectorAll(
@@ -139,7 +151,24 @@ export class Tabs {
   show = (position: string) => {
     const nextItem = this.items[parseInt(position)];
 
-    if (!nextItem || nextItem === this.currentItem) return;
+    if (!nextItem) return;
+
+    // COMPLETE ANIMATIONS FAST
+    if (this.previousItemAnimation) {
+      this.previousItemAnimation.end();
+      if (this.nextItemAnimation) {
+        this.nextItemAnimation.end();
+      }
+    }
+
+    // Allow change if this.previousItem === nextItem BUT dont play animations
+    this.previousItem = this.currentItem;
+
+    this.currentItem = nextItem;
+
+    if (this.previousItem === nextItem) {
+      return;
+    }
 
     // fast controls update for animations
 
@@ -149,7 +178,7 @@ export class Tabs {
 
         if (
           controlFor &&
-          parseInt(controlFor) === this.items.indexOf(nextItem)
+          parseInt(controlFor) === this.items.indexOf(this.currentItem)
         ) {
           return true;
         }
@@ -158,20 +187,68 @@ export class Tabs {
       });
 
       if (nextTablistItem) {
+        this.currentTablistItem.tabIndex = -1;
+        this.currentTablistItem.ariaSelected = "false";
+        this.currentTablistItem = nextTablistItem;
         nextTablistItem.removeAttribute("tabindex");
         nextTablistItem.ariaSelected = "true";
         // TODO: focus only if was sent here by arrow key NOT BY control
         nextTablistItem.focus();
-        this.currentTablistItem.tabIndex = -1;
-        this.currentTablistItem.ariaSelected = "false";
-        this.currentTablistItem = nextTablistItem;
       }
     }
 
-    this.currentItem.style.display = "none";
-    this.currentItem.removeAttribute("data-tabs-item-active");
-    nextItem.setAttribute("data-tabs-item-active", "");
-    nextItem.style.display = "block";
-    this.currentItem = nextItem;
+    // Variant number 1
+    // Less buggy version but CSS based + more selectors
+    // this.previousItem.removeAttribute("data-tabs-item-active");
+    // this.currentItem.setAttribute("data-tabs-item-active", "");
+
+    // this.previousItem.removeAttribute("data-tabs-item-showing");
+    // this.currentItem.scrollWidth;
+    // this.currentItem.setAttribute("data-tabs-item-showing", "");
+
+    // Variant number 2
+    // More performant BUT buggy needs further inspection
+    // Needs spam fix check bug
+    this.previousItemAnimation = new Animation({
+      duration: 250,
+      from: { opacity: 1 },
+      to: { opacity: 0 },
+      before: (state) => {
+        this.previousItem.style.transition = "opacity 0s";
+      },
+      step: ({ props }) => {
+        this.previousItem.style.opacity = props.opacity + "";
+      },
+      after: (state) => {
+        this.previousItem.style.display = "none";
+        this.previousItem.removeAttribute("data-tabs-item-active");
+        this.previousItem.removeAttribute("data-tabs-item-showing");
+        if (this.nextItemAnimation) {
+          this.nextItemAnimation.start();
+        }
+      },
+    });
+
+    this.nextItemAnimation = new Animation({
+      duration: 250,
+      from: { opacity: 0 },
+      to: { opacity: 1 },
+      before: (state) => {
+        this.currentItem.style.transition = "opacity 0s";
+        this.currentItem.style.display = "block";
+      },
+      step: ({ props }) => {
+        this.currentItem.style.opacity = props.opacity + "";
+      },
+      after: (state) => {
+        // Sometimes bugs out needs further inspection
+        // this.previousItemAnimation = undefined;
+        // this.nextItemAnimation = undefined;
+        this.currentItem.setAttribute("data-tabs-item-active", "");
+        this.currentItem.setAttribute("data-tabs-item-showing", "");
+      },
+    });
+
+    this.previousItemAnimation.start();
   };
 }

@@ -5,6 +5,7 @@ import { Scroller } from "./_scroller";
 import { TableOfContents } from "./_tableofcontents";
 import { Tabs } from "./_tabs";
 import { Tooltip } from "./_tooltip";
+import { SelectBox } from "./_selectbox";
 
 document.addEventListener(
   "DOMContentLoaded",
@@ -49,6 +50,13 @@ document.addEventListener(
         linkClass: "v-table-of-contests__link",
       });
     });
+
+    // Forms API
+    document
+      .querySelectorAll("[data-form-field='selectbox']")
+      .forEach((element) => {
+        new SelectBox(<HTMLElement>element);
+      });
   },
   { once: true }
 );

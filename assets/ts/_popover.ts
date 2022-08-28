@@ -1,5 +1,9 @@
 import { throttle } from "./_utils";
 
+export interface IPopoverConfig {
+  isMenu?: boolean;
+}
+
 export class Popover {
   element: HTMLDialogElement;
   control: Element | HTMLElement;
@@ -9,9 +13,13 @@ export class Popover {
   keyboardfocusableElements: Array<Element>;
   keyboardfocusableElementActive: Element;
   isTranslating: boolean = false;
+  isMenu: boolean = false;
 
-  constructor(element: HTMLDialogElement) {
+  constructor(element: HTMLDialogElement, config: IPopoverConfig = {}) {
     this.element = element;
+
+    this.isMenu =
+      config.isMenu || this.element.hasAttribute("data-popover-menu");
 
     // Force this element to body end
     document.body.appendChild(this.element);
@@ -41,7 +49,21 @@ export class Popover {
     });
     document.addEventListener("mousedown", this.handleDocumentMouseDown);
     document.addEventListener("keydown", this.handleDocumentKeyDown);
+    this.element.addEventListener("click", this.handleElementClick);
   }
+
+  handleElementClick = (evt: MouseEvent) => {
+    evt.preventDefault();
+
+    const target = <Element>evt.target;
+
+    if (target === this.element) return;
+
+    if (this.isMenu) {
+      this.close();
+      return;
+    }
+  };
 
   close = (withoutFocus: boolean = false) => {
     if (!this.active || this.isTranslating) return;
@@ -65,6 +87,7 @@ export class Popover {
   };
 
   handleDocumentKeyDown = (evt: KeyboardEvent) => {
+    // TODO: Add Home btn + End btn support
     if (!this.active) return;
 
     if (
@@ -116,11 +139,12 @@ export class Popover {
   };
 
   handleResize = () => {
+    // TODO: Fix resize because sometimes position is bugging out
     if (!this.active) return;
     this.show();
   };
 
-  handleDocumentMouseDown = (evt: Event) => {
+  handleDocumentMouseDown = (evt: MouseEvent) => {
     const target = <Element>evt.target;
 
     if (this.control.contains(target)) return;
@@ -174,7 +198,14 @@ export class Popover {
       top: elementTop,
     } = this.element.getBoundingClientRect();
 
-    if (elementTop + elementHeight + this.yOffset > window.innerHeight) {
+    if (Math.ceil(elementLeft + elementWidth) >= window.innerWidth) {
+      this.element.style.left =
+        elementLeft + window.scrollX - controlWidth - elementWidth + "px";
+    }
+
+    if (
+      Math.ceil(elementTop + elementHeight + this.yOffset) >= window.innerHeight
+    ) {
       this.element.style.top =
         elementTop -
         elementHeight -

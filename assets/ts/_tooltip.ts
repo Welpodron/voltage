@@ -31,8 +31,9 @@ export class Tooltip {
   initEventListeners = () => {
     this.control.addEventListener("mouseenter", this.handleMouseEnter);
     this.control.addEventListener("mouseleave", this.handleMouseLeave);
-    this.control.addEventListener("focusin", this.handleFocusIn);
-    this.control.addEventListener("focusout", this.handleFocusOut);
+    // FOCUS is removed
+    // this.control.addEventListener("focusin", this.handleFocusIn);
+    // this.control.addEventListener("focusout", this.handleFocusOut);
   };
 
   add = () => {
@@ -54,7 +55,7 @@ export class Tooltip {
     controlTop += window.scrollY;
     controlLeft += window.scrollX;
 
-    this.element.textContent = this.control.ariaLabel;
+    this.element.textContent = this.control.getAttribute("aria-label");
     this.element.setAttribute("data-tooltip-control", "");
 
     if (this.tooltipElClass) {
@@ -77,12 +78,15 @@ export class Tooltip {
       top: elementTop,
     } = this.element.getBoundingClientRect();
 
-    if (elementLeft + elementWidth > window.innerWidth) {
+    if (Math.ceil(elementLeft + elementWidth) >= window.innerWidth) {
       tooltip.style.left =
         elementLeft + window.scrollX - controlWidth - elementWidth + "px";
     }
 
-    if (elementTop + elementHeight + this.tooltipYOffset > window.innerHeight) {
+    if (
+      Math.ceil(elementTop + elementHeight + this.tooltipYOffset) >=
+      window.innerHeight
+    ) {
       this.element.style.top =
         elementTop +
         window.scrollY -
