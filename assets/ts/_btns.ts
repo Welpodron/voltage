@@ -85,3 +85,80 @@ export class BtnSidebarResizer {
     this.dragging = true;
   };
 }
+
+import { throttle } from "./_utils";
+
+export interface IBtnScrollToTopConfig {
+  control: HTMLElement;
+}
+
+type ScrollDirection = "top" | "left";
+
+export class BtnScrollToTop {
+  config: IBtnScrollToTopConfig;
+
+  constructor(control: HTMLElement) {
+    const config: IBtnScrollToTopConfig = {
+      control,
+    };
+
+    this.config = config;
+
+    this.checkVisibility();
+
+    this.#_removeEventListeners();
+    this.#_initEventListeners();
+  }
+
+  #_removeEventListeners = () => {
+    this.config.control.removeEventListener("click", this.#_handleControlClick);
+
+    document.removeEventListener(
+      "scroll",
+      throttle(this.#_handleDocumentScroll, 200)
+    );
+  };
+
+  #_initEventListeners = () => {
+    this.config.control.addEventListener("click", this.#_handleControlClick);
+
+    document.addEventListener(
+      "scroll",
+      throttle(this.#_handleDocumentScroll, 200)
+    );
+  };
+
+  #_handleDocumentScroll = () => {
+    this.checkVisibility();
+  };
+
+  #_handleControlClick = () => {
+    this.scrollTop();
+  };
+
+  checkVisibility = () => {
+    if (window.scrollY > 200) {
+      this.config.control.setAttribute("data-btn-scroll-to-top-active", "");
+    } else {
+      this.config.control.removeAttribute("data-btn-scroll-to-top-active");
+    }
+  };
+
+  scroll = (direction: ScrollDirection = "top", amount?: string | number) => {
+    const scrollOptions: { behavior: ScrollBehavior } = {
+      behavior: "smooth",
+    };
+
+    scrollOptions[direction] = amount;
+
+    window.scroll(scrollOptions);
+  };
+
+  scrollTop = (amount: string | number = 0) => {
+    this.scroll("top", amount);
+  };
+
+  scrollLeft = (amount: string | number = 0) => {
+    this.scroll("left", amount);
+  };
+}

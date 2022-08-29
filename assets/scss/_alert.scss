@@ -7,7 +7,7 @@
 
 .v-alert::before {
     content: "";
-    width: var(--#{$prefix}-size-16);
+    width: var(--#{$prefix}-size-8);
     background: var(--#{$prefix}-theme-surface-3);
     height: 100%;
     position: absolute;
@@ -16,7 +16,7 @@
 }
 
 .v-alert__header {
-    padding: var(--#{$prefix}-size-16) var(--#{$prefix}-size-16) 0 var(--#{$prefix}-size-32);
+    padding: var(--#{$prefix}-size-16) var(--#{$prefix}-size-16) 0 calc(var(--#{$prefix}-size-16) + var(--#{$prefix}-size-4));
     font-weight: var(--#{$prefix}-font-weight-5);  
     display: flex;
     align-items: center;
@@ -24,7 +24,7 @@
 }
 
 .v-alert__body {
-    padding: var(--#{$prefix}-size-16) var(--#{$prefix}-size-16) var(--#{$prefix}-size-16) var(--#{$prefix}-size-32);
+    padding: var(--#{$prefix}-size-16) var(--#{$prefix}-size-16) var(--#{$prefix}-size-16) calc(var(--#{$prefix}-size-16) + var(--#{$prefix}-size-4));
 }
 
 .v-alert.v-alert--danger::before {

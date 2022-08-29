@@ -6,14 +6,6 @@ draft: false
 
 ## Демонстрация работы компонента
 
-<button data-popover-action="show" data-popover-id="popover_example_01" class="v-btn v-btn--primary" type="button">Open popover</button>
-
-<dialog data-popover id="popover_example_01">
-  <button class="v-btn v-btn--primary" type="button">Hello from popover</button>
-  <button class="v-btn v-btn--danger" type="button">Example</button>
-  <button class="v-btn v-btn--secondary" type="button">Some popover action</button>
-</dialog>
-
 <div class="v-collapse-box">
   <div class="v-collapse-box__header">
   <button class="v-collapse-box__btn" type="button"><span>Collapse box 01</span>
@@ -94,3 +86,9 @@ draft: false
 </p>
 </div>
 </div>
+
+## Инициализация компонента
+
+{{< showcase lang="TypeScript">}}
+const a = 2;
+{{< /showcase >}}

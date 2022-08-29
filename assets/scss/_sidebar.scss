@@ -14,7 +14,7 @@
     padding: var(--#{$prefix}-size-32);
     position: -webkit-sticky;
     position: sticky;
-    top: 0;
+    // top: 0;
     overflow: visible;
     align-self: flex-start;
     // min-height: calc(var(--#{$prefix}-size-view-h) - var(--#{$prefix}-size-16));

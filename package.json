@@ -1,0 +1,24 @@
+{
+  "name": "voltage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Welpodron/voltage.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Welpodron/voltage/issues"
+  },
+  "homepage": "https://github.com/Welpodron/voltage#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.4.8",
+    "postcss-cli": "^10.0.0"
+  }
+}

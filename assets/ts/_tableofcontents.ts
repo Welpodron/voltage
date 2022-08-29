@@ -37,7 +37,7 @@ export class TableOfContents {
           }
         });
       },
-      { rootMargin: "0px 0px -100% 0px" }
+      { rootMargin: "0px 0px -40% 0px" }
     );
 
     this.buildTree(this.parseTree(), <HTMLElement>this.element);

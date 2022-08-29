@@ -1,3 +1,5 @@
+// WARNING! Possible memory leak here needs further investigation OR complete rework!
+
 export interface ICollapseHTMLElement extends HTMLElement {
   collapseInstance: Collapse;
 }
@@ -10,7 +12,7 @@ export class Collapse {
   translating: boolean = false;
   controls: NodeListOf<HTMLElement>;
   direction: string = "vertical";
-  // Accordion API
+  // Accordion API WARNING! Possible memory leak here needs further investigation OR complete rework!
   accordionSiblings: NodeListOf<ICollapseHTMLElement>;
   // Accordion API
 

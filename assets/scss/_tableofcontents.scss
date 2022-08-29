@@ -6,8 +6,9 @@
     padding: var(--#{$prefix}-size-32);
     position: sticky;
     overflow: visible;
-    max-height: calc(var(--#{$prefix}-size-view-h) - var(--#{$prefix}-size-16));
+    // max-height: calc(var(--#{$prefix}-size-view-h) - var(--#{$prefix}-size-16));
     top: var(--#{$prefix}-size-16);
+    align-self: flex-start;
 
     min-width: var(--#{$prefix}-size-256);
     width: var(--#{$prefix}-size-256);
@@ -25,7 +26,7 @@
 
 .v-table-of-contests__container {
     width: var(--#{$prefix}-size-100-p);
-    height: var(--#{$prefix}-size-100-p);
+    max-height: calc(var(--#{$prefix}-size-view-h) - var(--#{$prefix}-size-16));
     overflow-y: auto;
 }
 

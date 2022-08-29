@@ -10,6 +10,7 @@
       ---#{$prefix}-size-#{$i}: #{-$i + 'px'};
       $i: $i * 2; 
     }
+    // TODO: Find better solution
 
     $i: 10;
     @while $i <= 100 {

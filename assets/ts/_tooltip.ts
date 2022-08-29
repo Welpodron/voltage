@@ -1,171 +1,174 @@
 export interface ITooltipConfig {
-  tooltipElTagName?: keyof HTMLElementTagNameMap;
-  tooltipElClass?: string;
-  tooltipYOffset?: number;
-  isTooltipFixed?: boolean;
+  element?: HTMLElement;
+  timeout?: number;
+  control: HTMLElement;
 }
 
-export class Tooltip {
-  control: Element | HTMLElement;
-  element?: HTMLElement;
-  isHovering: boolean = false;
-  isFocused: boolean = false;
-  isTranslating: boolean = false;
-  isTooltipFixed: boolean = false;
+export interface ITooltipParams {
   tooltipElClass?: string;
-  tooltipElTagName: keyof HTMLElementTagNameMap = "span";
-  tooltipYOffset: number = 5;
+  tooltipElTagName: keyof HTMLElementTagNameMap;
+  tooltipYOffset: number;
+}
 
-  constructor(control: Element | HTMLElement, config: ITooltipConfig = {}) {
-    this.control = control;
+const defaultTooltipParams: ITooltipParams = {
+  tooltipElTagName: "span",
+  tooltipYOffset: 5,
+};
 
-    this.tooltipElClass = config.tooltipElClass;
-    this.tooltipElTagName = config.tooltipElTagName ?? this.tooltipElTagName;
-    this.tooltipYOffset = config.tooltipYOffset ?? this.tooltipYOffset;
-    // TODO: add fixed position support
-    this.isTooltipFixed = this.control.hasAttribute("data-tooltip-fixed");
+// TODO: add fixed position support
+// TODO: ADD  RESIZE EVENT
+export class Tooltip {
+  config: ITooltipConfig;
+  params: ITooltipParams;
 
-    this.initEventListeners();
+  constructor(control: HTMLElement, params: Partial<ITooltipParams> = {}) {
+    const config: ITooltipConfig = {
+      control,
+    };
+
+    this.config = config;
+    this.params = { ...defaultTooltipParams, ...params };
+
+    this.#_removeEventListeners();
+    this.#_initEventListeners();
   }
 
-  initEventListeners = () => {
-    this.control.addEventListener("mouseenter", this.handleMouseEnter);
-    this.control.addEventListener("mouseleave", this.handleMouseLeave);
-    // FOCUS is removed
-    // this.control.addEventListener("focusin", this.handleFocusIn);
-    // this.control.addEventListener("focusout", this.handleFocusOut);
+  #_initEventListeners = () => {
+    this.config.control.addEventListener(
+      "mouseenter",
+      this.#_handleControlMouseEnter
+    );
+    this.config.control.addEventListener(
+      "mouseleave",
+      this.#_handleControlMouseLeave
+    );
+    // TODO: Rework this workaround
+    this.config.control.addEventListener(
+      "hidecalled",
+      this.#_handleComponentHideCalled
+    );
+    this.config.control.addEventListener(
+      "showcalled",
+      this.#_handleComponentShowCalled
+    );
   };
 
-  add = () => {
-    if (this.isTranslating || this.element) return;
+  #_removeEventListeners = () => {
+    this.config.control.removeEventListener(
+      "mouseenter",
+      this.#_handleControlMouseEnter
+    );
+    this.config.control.removeEventListener(
+      "mouseleave",
+      this.#_handleControlMouseLeave
+    );
+    // TODO: Rework this workaround
+    this.config.control.removeEventListener(
+      "hidecalled",
+      this.#_handleComponentHideCalled
+    );
+    this.config.control.removeEventListener(
+      "showcalled",
+      this.#_handleComponentShowCalled
+    );
+  };
 
-    this.isTranslating = true;
+  #_handleComponentHideCalled = () => {
+    this.hide();
+  };
 
-    const tooltip = document.createElement(this.tooltipElTagName);
+  #_handleComponentShowCalled = () => {
+    this.show();
+  };
 
-    this.element = tooltip;
+  #_handleControlMouseEnter = () => {
+    this.show();
+  };
 
-    let {
+  #_handleControlMouseLeave = () => {
+    this.hide();
+  };
+
+  show = () => {
+    clearTimeout(this.config.timeout);
+
+    if (this.config.element) {
+      this.config.element.remove();
+      this.config.element = undefined;
+    }
+
+    this.config.element = document.createElement(this.params.tooltipElTagName);
+    this.config.element.textContent =
+      this.config.control.getAttribute("aria-label");
+    this.config.element.style.pointerEvents = "none";
+    this.config.element.style.opacity = "0";
+    this.config.element.style.transition = "opacity 0.2s ease";
+    this.config.element.setAttribute("data-tooltip-control", "");
+
+    if (this.params.tooltipElClass) {
+      this.config.element.classList.add(this.params.tooltipElClass);
+    }
+
+    const {
       top: controlTop,
       left: controlLeft,
       width: controlWidth,
       height: controlHeight,
-    } = this.control.getBoundingClientRect();
+    } = this.config.control.getBoundingClientRect();
 
-    controlTop += window.scrollY;
-    controlLeft += window.scrollX;
+    const controlTopScrollY = controlTop + window.scrollY;
+    const controlLeftScrollX = controlLeft + window.scrollX;
 
-    this.element.textContent = this.control.getAttribute("aria-label");
-    this.element.setAttribute("data-tooltip-control", "");
+    this.config.element.style.left = controlLeftScrollX + controlWidth + "px";
+    this.config.element.style.top =
+      controlTopScrollY + controlHeight + this.params.tooltipYOffset + "px";
 
-    if (this.tooltipElClass) {
-      this.element.classList.add(this.tooltipElClass);
-    }
-
-    this.element.style.left = controlLeft + controlWidth + "px";
-    this.element.style.top =
-      controlTop + controlHeight + this.tooltipYOffset + "px";
-
-    this.element.style.opacity = "0";
-    this.element.style.transition = "opacity 0.2s ease";
-
-    document.body.appendChild(this.element);
+    document.body.appendChild(this.config.element);
 
     const {
       width: elementWidth,
       height: elementHeight,
       left: elementLeft,
       top: elementTop,
-    } = this.element.getBoundingClientRect();
+    } = this.config.element.getBoundingClientRect();
 
     if (Math.ceil(elementLeft + elementWidth) >= window.innerWidth) {
-      tooltip.style.left =
+      this.config.element.style.left =
         elementLeft + window.scrollX - controlWidth - elementWidth + "px";
     }
 
     if (
-      Math.ceil(elementTop + elementHeight + this.tooltipYOffset) >=
+      Math.ceil(elementTop + elementHeight + this.params.tooltipYOffset) >=
       window.innerHeight
     ) {
-      this.element.style.top =
+      this.config.element.style.top =
         elementTop +
         window.scrollY -
         elementHeight -
         controlHeight -
-        this.tooltipYOffset -
-        this.tooltipYOffset +
+        this.params.tooltipYOffset -
+        this.params.tooltipYOffset +
         "px";
     }
 
-    this.element.style.opacity = "1";
+    this.config.element.style.opacity = "1";
+  };
 
-    setTimeout(() => {
-      this.element?.addEventListener(
+  hide = () => {
+    if (!this.config.element) return;
+
+    this.config.element.style.opacity = "0";
+
+    this.config.timeout = setTimeout(() => {
+      this.config.element?.addEventListener(
         "transitionend",
         () => {
-          this.isTranslating = false;
+          this.config.element?.remove();
+          this.config.element = undefined;
         },
         { once: true }
       );
-      this.element?.dispatchEvent(new TransitionEvent("transitionend"));
-    }, parseFloat(window.getComputedStyle(this.element).transitionDuration) * 1000);
-  };
-
-  remove = () => {
-    if (!this.element || this.isTranslating) return;
-    this.isTranslating = true;
-
-    this.element.style.opacity = "0";
-
-    setTimeout(() => {
-      this.element?.addEventListener(
-        "transitionend",
-        () => {
-          this.element?.remove();
-          this.element = undefined;
-          this.isTranslating = false;
-        },
-        { once: true }
-      );
-      this.element?.dispatchEvent(new TransitionEvent("transitionend"));
-    }, parseFloat(window.getComputedStyle(this.element).transitionDuration) * 1000);
-  };
-
-  handleFocusOut = (evt: Event) => {
-    if (
-      !(<Element>(<FocusEvent>evt).currentTarget).contains(
-        <Element>(<FocusEvent>evt).relatedTarget
-      )
-    ) {
-      this.isFocused = false;
-
-      if (!this.isHovering) {
-        this.remove();
-      }
-    }
-  };
-
-  handleFocusIn = (evt: Event) => {
-    this.isFocused = true;
-
-    if (!this.isHovering) {
-      this.add();
-    }
-  };
-
-  handleMouseEnter = (evt: Event) => {
-    this.isHovering = true;
-
-    if (!this.isFocused) {
-      this.add();
-    }
-  };
-
-  handleMouseLeave = (evt: Event) => {
-    this.isHovering = false;
-
-    if (!this.isFocused) {
-      this.remove();
-    }
+      this.config.element?.dispatchEvent(new TransitionEvent("transitionend"));
+    }, parseFloat(window.getComputedStyle(this.config.element).transitionDuration) * 1000);
   };
 }

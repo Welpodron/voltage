@@ -3,6 +3,7 @@
 @import "fonts";
 @import "sizes";
 @import "shadows";
+@import "animations";
 
 @import "normalize";
 @import "reset";
@@ -16,6 +17,13 @@
 @import "breadcrumbs";
 
 @import "highlight";
+
+@import "link";
+
+img {
+    max-width: 100%;
+    height: auto;
+}
 
 *, ::after, ::before {
     box-sizing: border-box;
@@ -58,8 +66,6 @@ h2 {
 }
 
 @import "selectbox";
-
-@import "scroller";
 @import "tabs";
 @import "popover";
 @import "alert";

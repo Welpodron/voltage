@@ -1,0 +1,18 @@
+@import "utils";
+
+:where(html) {
+    @keyframes #{$prefix}-keyframes-spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+    --#{$prefix}-animation-spin: #{$prefix}-keyframes-spin 1s linear infinite;
+}
+
+.v-animation-spin {
+    animation: var(--#{$prefix}-animation-spin);
+}

@@ -32,17 +32,17 @@
 }
 
 .v-tabs__btn {
-    background: var(--#{$prefix}-theme-surface-3);
+    background: var(--#{$prefix}-theme-surface-4);
     width: var(--#{$prefix}-size-100-p);
     padding: var(--#{$prefix}-size-16);
     border: 0;
-    border-left: var(--#{$prefix}-size-16) solid var(--#{$prefix}-theme-surface-3);
+    border-bottom: var(--#{$prefix}-size-8) solid var(--#{$prefix}-theme-surface-4);
 }
 
 .v-tabs__btn[aria-selected="true"] {
     // color: var(--#{$prefix}-theme-brand);
-    background: var(--#{$prefix}-theme-surface-4);
-    border-left: var(--#{$prefix}-size-16) solid var(--#{$prefix}-theme-text-1);
+    background: var(--#{$prefix}-theme-surface-3);
+    border-bottom: var(--#{$prefix}-size-8) solid var(--#{$prefix}-theme-text-1);
     // border-left: var(--#{$prefix}-size-16) solid var(--#{$prefix}-theme-brand);
 }
 

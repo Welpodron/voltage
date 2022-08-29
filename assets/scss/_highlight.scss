@@ -1,7 +1,34 @@
 @import "utils";
 
 .v-code {
+    &__btn {
+        .v-code__btn-icon {
+            &--loading {
+                display: none;
+            };
+            &--success {
+                display: none;
+            }
+        };
+    };
+    &__btn--loading {
+        .v-code__btn-icon {
+            display: none;
 
+            &--loading {
+                display: block;
+            };
+        }
+    };
+    &__btn--success {
+        .v-code__btn-icon {
+            display: none;
+
+            &--success {
+                display: block;
+            };
+        }
+    }
 }
 
 .v-code__header {
@@ -12,6 +39,7 @@
     align-items: center;
     justify-content: space-between;
 }
+
 
 .highlight {
     position: relative;
