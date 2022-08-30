@@ -13,6 +13,8 @@ export class Popover {
   keyboardfocusableElements: Array<Element>;
   keyboardfocusableElementActive: Element;
   isTranslating: boolean = false;
+  // WARNING! POSSIBLE MEMORY LEAK
+  beforeMoveChildren: Array<Element>;
   isMenu: boolean = false;
 
   constructor(element: HTMLDialogElement, config: IPopoverConfig = {}) {
@@ -22,7 +24,9 @@ export class Popover {
       config.isMenu || this.element.hasAttribute("data-popover-menu");
 
     // Force this element to body end
-    document.body.appendChild(this.element);
+    // WARNING! POSSIBLE MEMORY LEAK
+    this.beforeMoveChildren = [...this.element.children];
+    // document.body.appendChild(this.element);
     // Only one and first control
     this.control = <HTMLElement>(
       document.querySelector(
@@ -30,6 +34,7 @@ export class Popover {
       )
     );
 
+    // TODO: REWORK! DO NOT INCLUDE HERE CHILDREN!!!! IT CAUSES FOCUS PROBLEMS
     this.keyboardfocusableElements = [
       ...this.element.querySelectorAll(
         'a[href], button, input, textarea, select, details, [tabindex]:not([tabindex="-1"])'
@@ -149,12 +154,17 @@ export class Popover {
 
     if (this.control.contains(target)) return;
     if (this.element.contains(target)) return;
+    if (this.beforeMoveChildren.some((child) => child.contains(target))) return;
 
     this.close();
   };
 
   show = () => {
     if (this.isTranslating) return;
+
+    // Force this element to body end
+    // DONT MOVE
+    document.body.appendChild(this.element);
 
     let {
       width: controlWidth,
@@ -165,6 +175,8 @@ export class Popover {
 
     controlLeft += window.scrollX;
     controlTop += window.scrollY;
+
+    // console.log(controlTop + controlHeight);
 
     this.element.style.left = controlLeft + "px";
     this.element.style.top = controlTop + controlHeight + this.yOffset + "px";

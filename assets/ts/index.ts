@@ -4,8 +4,39 @@ import { Popover } from "./_popover";
 import { TableOfContents } from "./_tableofcontents";
 import { Tabs } from "./_tabs";
 import { Tooltip } from "./_tooltip";
-import { SelectBox } from "./_selectbox";
+
 import { Clipboard } from "./_clipboard";
+import { Roulette } from "./_roulette";
+
+// FORMS API START
+import { Checkbox, CheckboxGroup } from "./forms/_checkbox";
+import { SelectBox } from "./forms/_selectbox";
+import { FieldDate } from "./forms/_calendar";
+// FORMS API END
+
+// Calendar API start
+// import { getMonthDays, getCalendarPanel } from "./forms/_calendar";
+
+// 0 - Январь 1 - Февраль 11 - Декабрь
+// 0 - Вс 1 - Пн 6 - Суббота
+// getMonthDays => число от 1 до 31 включительно
+// const year = 2022;
+// const month = 8 - 1; // Август 8 месяц, но нумерация начинается с нуля
+// const panel = getCalendarPanel(year, month);
+// // console.log(getMonthDays(year, month));
+// // console.log(getGroups(year, month, getMonthDays(year, month)));
+// document.querySelectorAll("[data-row]").forEach((row, rowIndex) => {
+//   panel[rowIndex].forEach((day) => {
+//     const td = document.createElement("td");
+//     td.classList.add("CALENDAR_EXAMPLE_CELL");
+
+//     td.textContent = day.numeric;
+
+//     row.appendChild(td);
+//   });
+// });
+
+// Calendar API end
 
 // WEB-COMPONENTS API START
 import { ImgMagnifier } from "./web-components/_img-magnifier";
@@ -104,12 +135,33 @@ document.addEventListener(
       });
     });
 
+    document.querySelectorAll("[data-roulette]").forEach((element) => {
+      new Roulette(<HTMLElement>element);
+    });
+
     // Forms API
     document
       .querySelectorAll("[data-form-field='selectbox']")
       .forEach((element) => {
         new SelectBox(<HTMLElement>element);
       });
+
+    document
+      .querySelectorAll("[data-form-field][data-form-field-type='checkbox']")
+      .forEach((element) => {
+        new Checkbox(<HTMLElement>element);
+      });
+    document
+      .querySelectorAll(
+        "[data-form-field][data-form-field-type='checkbox-group']"
+      )
+      .forEach((element) => {
+        new CheckboxGroup(<HTMLElement>element);
+      });
+
+    document.querySelectorAll("[data-form-field-date]").forEach((element) => {
+      new FieldDate(<HTMLElement>element);
+    });
   },
   { once: true }
 );

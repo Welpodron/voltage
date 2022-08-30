@@ -73,3 +73,57 @@ h2 {
 @import "tooltip";
 @import "collapse";
 @import "tableofcontents";
+
+// Forms
+@import "forms";
+
+.TIME_EXAMPLE {
+    display: flex;
+    align-items: flex-start;
+}
+
+.TIME_EXAMPLE .v_roulette {
+    flex-grow: 1;
+    flex-basis: calc(100%/3);
+    margin-right: 8px;
+}
+
+.v_roulette-dialog {
+    box-shadow: var(--shadow-3);
+    background: var(--#{$prefix}-theme-surface-1);
+    border: 0;
+    // display: grid;
+
+    padding: var(--#{$prefix}-size-8);
+    // min-width: 64px;
+    // max-width: 256px;
+    overflow: auto;
+    max-height: var(--#{$prefix}-size-256);
+}
+
+.v_roulette-dialog__dialog-container {
+    display: grid;
+    gap: var(--#{$prefix}-size-8);
+}
+
+.v_roulette__body::-webkit-scrollbar {
+    display: none !important;
+}
+
+.v_roulette__body {
+    font-size: 14px;
+    max-height: 135px;
+    overflow-y: scroll;
+    scroll-snap-type: y proximity;
+
+    -ms-overflow-style: none !important;  /* IE and Edge */
+    scrollbar-width: none !important;  /* Firefox */
+}
+
+.v_roulette button {
+    // width: 100%;
+    background: transparent;
+    padding: 10px;
+    border: 0;
+    background: var(--#{$prefix}-theme-surface-1);
+}

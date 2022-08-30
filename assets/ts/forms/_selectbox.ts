@@ -1,4 +1,6 @@
-import { Popover } from "./_popover";
+import { Popover } from "../_popover";
+
+// TODO: rework
 
 interface ISelectBoxConfig {
   name?: string;
