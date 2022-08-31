@@ -190,3 +190,27 @@ export class Animation {
     this.stop(true);
   };
 }
+
+export const uuid = (prefix: string = "") => {
+  // Thanks 30 seconds of code https://www.30secondsofcode.org/js/s/uuid-generator-browser
+  return (
+    prefix +
+    (<number>(<unknown>[1e7]) + -1e3 + -4e3 + -8e3 + -1e11)
+      .toString()
+      .replace(/[018]/g, (c) =>
+        (
+          (<number>(<unknown>c)) ^
+          (crypto.getRandomValues(new Uint8Array(1))[0] &
+            (15 >> (<number>(<unknown>c) / 4)))
+        ).toString(16)
+      )
+  );
+};
+
+// Thanks m59 and Ruslan López https://stackoverflow.com/a/33457557
+export const range = (start: number, end: number, step: number = 1) => {
+  const len = Math.floor((end - start) / step) + 1;
+  return Array(len)
+    .fill(0)
+    .map((_, idx) => start + idx * step);
+};

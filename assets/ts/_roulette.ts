@@ -50,13 +50,24 @@ export class Roulette {
     }
   };
 
-  scrollBy = (value: string | number) => {
-    const scrollValue = typeof value === "string" ? parseInt(value) : value;
+  scrollTo = (value: string) => {
+    let scrollTo = 0;
 
-    console.log(scrollValue);
+    if (value === "bottom") {
+      scrollTo = this.config.screen.scrollHeight;
+    }
+
+    this.config.screen.scrollTo({
+      top: scrollTo,
+      behavior: "smooth",
+    });
+  };
+
+  scrollBy = (value: string | number) => {
+    const scrollBy = typeof value === "string" ? parseInt(value) : value;
 
     this.config.screen.scrollBy({
-      top: scrollValue,
+      top: scrollBy,
       behavior: "smooth",
     });
   };

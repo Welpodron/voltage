@@ -30,16 +30,16 @@ img {
 }
 
 ::-webkit-scrollbar {
-    width: var(--#{$prefix}-size-16);
-    height: var(--#{$prefix}-size-16);
+    width: var(--v-size-16);
+    height: var(--v-size-16);
 }
 
 ::-webkit-scrollbar-track {
-    background-color: var(--#{$prefix}-gray-1);
+    background-color: var(--v-gray-1);
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: var(--#{$prefix}-gray-4);
+    background-color: var(--v-gray-4);
 }
 
 html {
@@ -49,20 +49,20 @@ html {
 }
 
 body {
-    font-family: var(--#{$prefix}-font-family-sans);
-    line-height: var(--#{$prefix}-font-lineheight-2);
-    color: var(--#{$prefix}-theme-text-1);
-    background-color: var(--#{$prefix}-theme-surface-1);
+    font-family: var(--v-font-family-sans);
+    line-height: var(--v-font-lineheight-2);
+    color: var(--v-theme-text-1);
+    background-color: var(--v-theme-surface-1);
 }
 
 h1 {
-    font-size: var(--#{$prefix}-font-size-7);
-    font-weight: var( --#{$prefix}-font-weight-7);
+    font-size: var(--v-font-size-7);
+    font-weight: var( --v-font-weight-7);
 }
 
 h2 {
-    font-size: var(--#{$prefix}-font-size-5);
-    font-weight: var( --#{$prefix}-font-weight-7);  
+    font-size: var(--v-font-size-5);
+    font-weight: var( --v-font-weight-7);  
 }
 
 @import "selectbox";
@@ -90,20 +90,25 @@ h2 {
 
 .v_roulette-dialog {
     box-shadow: var(--shadow-3);
-    background: var(--#{$prefix}-theme-surface-1);
+    background: var(--v-theme-surface-1);
     border: 0;
     // display: grid;
 
-    padding: var(--#{$prefix}-size-8);
+    padding: var(--v-size-8);
     // min-width: 64px;
     // max-width: 256px;
     overflow: auto;
-    max-height: var(--#{$prefix}-size-256);
+    max-height: var(--v-size-256);
 }
 
 .v_roulette-dialog__dialog-container {
     display: grid;
-    gap: var(--#{$prefix}-size-8);
+    gap: var(--v-size-8);
+}
+
+.v_roulette {
+    display: grid;
+    gap: 4px;
 }
 
 .v_roulette__body::-webkit-scrollbar {
@@ -113,6 +118,8 @@ h2 {
 .v_roulette__body {
     font-size: 14px;
     max-height: 135px;
+    display: grid;
+    gap: 4px;
     overflow-y: scroll;
     scroll-snap-type: y proximity;
 
@@ -123,7 +130,7 @@ h2 {
 .v_roulette button {
     // width: 100%;
     background: transparent;
-    padding: 10px;
+    padding: 8px;
     border: 0;
-    background: var(--#{$prefix}-theme-surface-1);
+    background: var(--v-theme-surface-1);
 }

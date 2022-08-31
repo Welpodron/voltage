@@ -3,7 +3,7 @@
 .v-breadcrumbs__list {
     display: flex;
     flex-wrap: wrap;
-    font-size: var(--#{$prefix}-font-size-0);
+    font-size: var(--v-font-size-0);
     line-height: 1;
 }
 
@@ -18,24 +18,24 @@
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    width: var(--#{$prefix}-font-size-0);
-    height: var(--#{$prefix}-font-size-0);
+    width: var(--v-font-size-0);
+    height: var(--v-font-size-0);
     display: inline-block;
-    transform: translateY(var(--#{$prefix}-size-1));
+    transform: translateY(var(--v-size-1));
 }
 
 .v-breadcrumbs__item--active {
-    color: var(--#{$prefix}-theme-brand);
-    font-weight: var(--#{$prefix}-font-weight-7);
+    color: var(--v-theme-brand);
+    font-weight: var(--v-font-weight-7);
 }
 
 .v-breadcrumbs__link {
     display: inline-block;
-    padding: var(--#{$prefix}-size-8);
-    border-radius: var(--#{$prefix}-size-16);
-    margin: var(--#{$prefix}-size-8);
+    padding: var(--v-size-8);
+    border-radius: var(--v-size-16);
+    margin: var(--v-size-8);
 }
 
 .v-breadcrumbs__link--active {
-    background: var(--#{$prefix}-gray-1);
+    background: var(--v-gray-1);
 }

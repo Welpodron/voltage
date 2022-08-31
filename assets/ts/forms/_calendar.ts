@@ -1,6 +1,11 @@
 // TODO: Implement
 // 0 - Январь
 // 1 - Февраль и тд
+
+import { Popover } from "../_popover";
+import { Roulette } from "../_roulette";
+import { uuid } from "../_utils";
+
 // month is between 1 and 12
 export const getMonthDays = (year: number, month: number) => {
   return new Date(year, month + 1, 0).getDate();
@@ -24,12 +29,23 @@ const getWeekday = (year: number, month: number, day: number) => {
 
 // day obj = {year: {} month: {} day: {} week to impelement week}
 
+const MONTHS = [...Array(12).keys()].map((key) => {
+  const monthName = new Date(0, key).toLocaleString("ru-RU", { month: "long" });
+  return {
+    number: key,
+    name: monthName[0].toUpperCase() + monthName.slice(1),
+  };
+});
+
+// const YEARS = range(1000, 9999, 1);
+
 interface IDay {
   numeric: string;
   formatted: string;
 }
 
 export interface IFieldDateConfig {
+  id: string;
   element: HTMLElement;
   controls: Array<HTMLElement>;
   input: HTMLInputElement;
@@ -42,6 +58,9 @@ export interface IFieldDateConfig {
   currentDay: number;
 
   calendar: HTMLElement;
+  calendarControls: HTMLElement;
+  calendarMonthControl: HTMLElement;
+  calendarYearControl: HTMLElement;
 }
 
 export class FieldDate {
@@ -60,6 +79,24 @@ export class FieldDate {
       element.querySelector("[data-form-field-date-calendar]")
     );
 
+    const calendarControls = <HTMLElement>(
+      element.querySelector("[data-form-field-date-calendar-controls]")
+    );
+
+    const calendarMonthControl = <HTMLElement>(
+      calendarControls.querySelector(
+        "[data-form-field-date-calendar-controls-active-month]"
+      )
+    );
+
+    const calendarYearControl = <HTMLElement>(
+      calendarControls.querySelector(
+        "[data-form-field-date-calendar-controls-active-year]"
+      )
+    );
+
+    const id = element.id.trim();
+
     const savedDate = new Date();
     const savedYear = savedDate.getFullYear();
     const savedMonth = savedDate.getMonth();
@@ -71,6 +108,7 @@ export class FieldDate {
     const currentDay = currentDate.getDate();
 
     this.config = {
+      id,
       element,
       name,
       input,
@@ -81,9 +119,13 @@ export class FieldDate {
       currentDay,
       currentMonth,
       currentYear,
+      calendarControls,
+      calendarMonthControl,
+      calendarYearControl,
     };
 
     console.log(this.config);
+    this.#_updateCalendarControls();
     this.initCalendar();
     // TODO: DO EVENT DELEGATION
     this.#_removeEventListeners();
@@ -91,29 +133,36 @@ export class FieldDate {
   }
 
   #_initEventListeners = () => {
-    this.config.controls.forEach((control) => {
-      control.addEventListener("click", this.#_handleControlClick);
-    });
+    document.addEventListener("click", this.#_handleDocumentClick);
   };
 
   #_removeEventListeners = () => {
-    this.config.controls.forEach((control) => {
-      control.removeEventListener("click", this.#_handleControlClick);
-    });
+    document.removeEventListener("click", this.#_handleDocumentClick);
   };
 
-  #_handleControlClick = (evt: MouseEvent) => {
-    evt.preventDefault();
-
-    const currentTarget = <HTMLElement>evt.currentTarget;
-
-    const action = currentTarget.getAttribute("data-form-field-date-action");
-
-    if (action && this[action] instanceof Function) {
-      const args = currentTarget.getAttribute(
-        "data-form-field-date-action-args"
+  #_handleDocumentClick = (evt: MouseEvent) => {
+    const target = <HTMLElement>evt.target;
+    if (target) {
+      // check if control is to THIS EXACT CALENDAR
+      const closestControl = target.closest(
+        `[data-form-field-date-action][data-form-field-date-id=${this.config.id}]`
       );
-      this[action](args);
+
+      if (closestControl) {
+        evt.preventDefault();
+
+        const action = closestControl.getAttribute(
+          "data-form-field-date-action"
+        );
+
+        if (action && this[action] instanceof Function) {
+          const args = closestControl.getAttribute(
+            "data-form-field-date-action-args"
+          );
+
+          this[action](args);
+        }
+      }
     }
   };
 
@@ -214,16 +263,121 @@ export class FieldDate {
     return panel;
   };
 
+  #_initMonthControl = () => {
+    console.log(1);
+    // this.#_updateCalendarControls();
+
+    const monthPopoverId = uuid("popover_");
+    const monthPopover = document.createElement("dialog");
+    monthPopover.setAttribute("data-popover", "");
+    // TODO: Remove!
+    monthPopover.classList.add("v_roulette-dialog");
+    //
+    monthPopover.id = monthPopoverId;
+    const monthPopoverBody = document.createElement("div");
+    monthPopoverBody.classList.add("v_roulette-dialog__dialog-container");
+
+    const monthRoulette = document.createElement("div");
+    monthRoulette.setAttribute("data-roulette", "");
+    monthRoulette.classList.add("v_roulette");
+    const monthRouletteBody = document.createElement("div");
+    monthRouletteBody.setAttribute("data-roulette-screen", "");
+    monthRouletteBody.classList.add("v_roulette__body");
+
+    MONTHS.forEach((month) => {
+      const btn = document.createElement("button");
+      btn.textContent = month.name;
+      btn.setAttribute("data-form-field-date-id", this.config.id);
+      btn.setAttribute("data-form-field-date-action", "changeMonth");
+      btn.setAttribute(
+        "data-form-field-date-action-args",
+        month.number.toString()
+      );
+      monthRouletteBody.appendChild(btn);
+    });
+
+    monthRoulette.appendChild(monthRouletteBody);
+    monthPopoverBody.appendChild(monthRoulette);
+    monthPopover.appendChild(monthPopoverBody);
+
+    // this.config.calendarMonthControl.setAttribute(
+    //   "data-popover-action",
+    //   "show"
+    // );
+    // this.config.calendarMonthControl.setAttribute(
+    //   "data-popover-id",
+    //   monthPopoverId
+    // );
+
+    this.config.calendarControls.appendChild(monthPopover);
+
+    new Popover(monthPopover, {
+      isOnce: true,
+      isForced: true,
+      popoverPositionFrom: this.config.calendarMonthControl,
+    });
+    new Roulette(monthRoulette);
+  };
+
+  #_initYearControl = () => {
+    this.#_updateCalendarControls();
+
+    const yearPopoverId = uuid("popover_");
+    const yearPopover = document.createElement("dialog");
+    yearPopover.setAttribute("data-popover", "");
+    // TODO: Remove!
+    yearPopover.classList.add("v_roulette-dialog");
+    //
+    yearPopover.id = yearPopoverId;
+    const yearPopoverBody = document.createElement("div");
+    yearPopoverBody.classList.add("v_roulette-dialog__dialog-container");
+
+    const yearRoulette = document.createElement("div");
+    yearRoulette.setAttribute("data-roulette", "");
+    yearRoulette.classList.add("v_roulette");
+    const yearRouletteBody = document.createElement("div");
+    yearRouletteBody.setAttribute("data-roulette-screen", "");
+    yearRouletteBody.classList.add("v_roulette__body");
+
+    for (
+      let i = this.config.currentYear - 5;
+      i < this.config.currentYear + 6;
+      i++
+    ) {
+      const btn = document.createElement("button");
+      btn.textContent = i.toString();
+      btn.setAttribute("data-form-field-date-id", this.config.id);
+      btn.setAttribute("data-form-field-date-action", "changeYear");
+      btn.setAttribute("data-form-field-date-action-args", i.toString());
+      yearRouletteBody.appendChild(btn);
+    }
+
+    yearRoulette.appendChild(yearRouletteBody);
+    yearPopoverBody.appendChild(yearRoulette);
+    yearPopover.appendChild(yearPopoverBody);
+
+    this.config.calendarYearControl.setAttribute("data-popover-action", "show");
+    this.config.calendarYearControl.setAttribute(
+      "data-popover-id",
+      yearPopoverId
+    );
+
+    new Popover(yearPopover, { isOnce: true });
+    new Roulette(yearRoulette);
+
+    this.config.calendarControls.appendChild(yearPopover);
+  };
+
+  #_initCalendarControls = () => {
+    // this.#_initMonthControl();
+    // this.#_initYearControl();
+  };
+
   initCalendar = () => {
     const panel = this.getCalendarPanel(
       this.config.currentYear,
       this.config.currentMonth
     );
-
-    // TODO: it is better TO DO EVENT DELEGATION
-    this.config.calendar.querySelectorAll("button").forEach((btn) => {
-      btn.removeEventListener("click", this.#_handleControlClick);
-    });
 
     this.config.calendar.replaceChildren();
 
@@ -234,9 +388,10 @@ export class FieldDate {
         const td = document.createElement("td");
         const btn = document.createElement("button");
         btn.textContent = day.numeric;
+        btn.setAttribute("data-form-field-date-id", this.config.id);
         btn.setAttribute("data-form-field-date-action", "changeValue");
         btn.setAttribute("data-form-field-date-action-args", day.formatted);
-        btn.addEventListener("click", this.#_handleControlClick);
+        // btn.addEventListener("click", this.#_handleControlClick);
         td.appendChild(btn);
         tr.appendChild(td);
       });
@@ -259,21 +414,43 @@ export class FieldDate {
 
   #_updateDay = (day: number) => {};
 
-  changeMonth = (value: string | number) => {
+  #_updateCalendarControls = () => {
+    const currentMonth = MONTHS.find(
+      (month) => month.number === this.config.currentMonth
+    );
+
+    if (currentMonth) {
+      this.config.calendarMonthControl.textContent = currentMonth.name;
+    }
+
+    this.config.calendarYearControl.textContent =
+      this.config.currentYear.toString();
+  };
+
+  getNextMonth = (value: string | number) => {
     if (value === "after") {
-      const date = new Date(this.config.currentDate.getTime());
-      date.setMonth(this.config.currentMonth + 1);
-      this.#_updateDate(date);
-      this.initCalendar();
-      return;
+      return this.config.currentMonth + 1;
     }
 
     if (value === "before") {
-      const date = new Date(this.config.currentDate.getTime());
-      date.setMonth(this.config.currentMonth - 1);
-      this.#_updateDate(date);
-      this.initCalendar();
-      return;
+      return this.config.currentMonth - 1;
     }
+
+    return typeof value === "string" ? parseInt(value) : value;
   };
+
+  changeMonth = (value: string | number) => {
+    const date = new Date(this.config.currentDate.getTime());
+    date.setMonth(this.getNextMonth(value));
+    this.#_updateDate(date);
+    this.#_updateCalendarControls();
+    this.initCalendar();
+  };
+
+  showMonthList = () => {
+    console.log(1);
+    this.#_initMonthControl();
+  };
+
+  showYearList = () => {};
 }

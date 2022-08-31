@@ -1,0 +1,99 @@
+<p>Custom</p>
+<p>Input type "date"</p>
+<div
+  class="v-field-date"
+  id="field_date_example"
+  data-form-field="date"
+  data-form-field-type="date"
+  data-form-field-date
+>
+  <input />
+  <button
+    data-form-field-date-action="show"
+    type="button"
+    data-popover-action="show"
+    data-popover-id="calendar_example"
+  >
+    Open calendar
+  </button>
+  <dialog
+    class="v-field-date__dialog"
+    id="calendar_example"
+    data-popover
+    data-popover-dynamic
+  >
+    <div class="v-field-date__dialog-container">
+      <div
+        data-form-field-date-calendar-controls
+        class="v-field-date__calendar-controls"
+      >
+        <button
+          data-form-field-date-action="changeMonth"
+          data-form-field-date-action-args="before"
+          data-form-field-date-id="field_date_example"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            width="24"
+            height="24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15.75 19.5L8.25 12l7.5-7.5"
+            />
+          </svg>
+        </button>
+        <button
+          data-form-field-date-calendar-controls-active-month
+          data-form-field-date-action="showMonthList"
+          data-form-field-date-id="field_date_example"
+          type="button"
+        ></button>
+        <button data-form-field-date-calendar-controls-active-year></button>
+        <button
+          data-form-field-date-action="changeMonth"
+          data-form-field-date-action-args="after"
+          data-form-field-date-id="field_date_example"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            width="24"
+            height="24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M8.25 4.5l7.5 7.5-7.5 7.5"
+            />
+          </svg>
+        </button>
+      </div>
+      <table class="v-field-date__calendar-table">
+        <thead class="v-field-date__calendar-header">
+          <tr class="v-field-date__calendar-row">
+            <th>Пн</th>
+            <th>Вт</th>
+            <th>Ср</th>
+            <th>Чт</th>
+            <th>Пт</th>
+            <th>Сб</th>
+            <th>Вс</th>
+          </tr>
+        </thead>
+        <tbody
+          class="v-field-date__calendar-body"
+          data-form-field-date-calendar
+        ></tbody>
+      </table>
+    </div>
+  </dialog>
+</div>
