@@ -1,9 +1,5 @@
-@import "utils";
-
 .v-shell {
-    // display: grid;
     min-height: var(--v-size-view-h);
-    // grid-template-rows: auto 1fr auto;
 }
 
 .v-shell__header {
@@ -14,8 +10,6 @@
 }
 
 .v-shell__body {
-    // display: flex;
-    // gap: var(--v-size-64);
     min-height: var(--v-size-view-h);
     padding: var(--v-size-32) 0;
 }
@@ -24,7 +18,6 @@
     .v-shell__body {
         display: flex;
         gap: var(--v-size-64);
-        // padding: var(--v-size-32) 0;
     } 
 }
 

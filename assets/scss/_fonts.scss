@@ -1,6 +1,4 @@
-@import "utils";
-
-:where(html) {
+:root {
     --v-font-family-sans: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
     --v-font-family-serif: ui-serif,serif;
     --v-font-family-mono: Dank Mono,Operator Mono,Inconsolata,Fira Mono,ui-monospace,SF Mono,Monaco,Droid Sans Mono,Source Code Pro,monospace;

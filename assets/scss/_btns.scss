@@ -1,5 +1,3 @@
-@import "utils";
-
 .v-btn {
     cursor: pointer;
     display: inline-flex;
@@ -18,12 +16,12 @@
 }
 
 .v-btn--primary {
-    background: var(--v-violet-7);
-    color: var(--v-gray-1);
+    background: var(--v-theme-primary-1);
+    color: var(--v-white-1);
 }
 
 .v-btn--danger {
-    background: var(--v-red-8);
+    background: var(--v-theme-danger-2);
 }
 
 .v-btn--full {

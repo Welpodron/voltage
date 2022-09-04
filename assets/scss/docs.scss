@@ -8,6 +8,7 @@
 @import "normalize";
 @import "reset";
 
+@import "grid";
 @import "btns";
 
 @import "logo";
@@ -29,19 +30,6 @@ img {
     box-sizing: border-box;
 }
 
-::-webkit-scrollbar {
-    width: var(--v-size-16);
-    height: var(--v-size-16);
-}
-
-::-webkit-scrollbar-track {
-    background-color: var(--v-gray-1);
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: var(--v-gray-4);
-}
-
 html {
     scroll-behavior: smooth;
     overflow-wrap: break-word;
@@ -53,6 +41,19 @@ body {
     line-height: var(--v-font-lineheight-2);
     color: var(--v-theme-text-1);
     background-color: var(--v-theme-surface-1);
+}
+
+::-webkit-scrollbar {
+    width: var(--v-size-16);
+    height: var(--v-size-16);
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--v-theme-surface-2);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--v-theme-surface-4);
 }
 
 h1 {

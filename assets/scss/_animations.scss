@@ -1,6 +1,4 @@
-@import "utils";
-
-:where(html) {
+:root {
     @keyframes v-keyframes-spin {
         from {
           transform: rotate(0deg);

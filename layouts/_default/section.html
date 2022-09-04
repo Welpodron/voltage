@@ -1,1 +1,11 @@
-{{ define "main" }} section page {{end}}
+{{ define "main" }}
+<section id="main">
+  {{ partial "breadcrumbs.html" .}}
+  <h1 id="title">{{ .Title }}</h1>
+  <ul class="v-grid v-grid--gap-16 v-grid--cols-4">
+    {{range .Pages}}
+    <li><a href="{{.Permalink}}">{{.Title}}</a></li>
+    {{end}}
+  </ul>
+</section>
+{{ end }}

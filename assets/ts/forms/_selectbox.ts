@@ -24,6 +24,8 @@ export class SelectBox {
     this.element = element;
 
     this.input = <HTMLInputElement>this.element.querySelector("input");
+    this.input.style.cursor = "pointer";
+    this.input.readOnly = true;
 
     this.name =
       config.name ||
@@ -45,27 +47,37 @@ export class SelectBox {
       ),
     ];
 
-    this.destroyEventListeners();
+    this.removeEventListeners();
     this.initEventListeners();
   }
 
   initEventListeners = () => {
-    this.input.addEventListener("click", this.handleInputClick);
+    this.input.addEventListener("keydown", this.#_handleInputKeydown);
 
     this.controls.forEach((control) => {
       control.addEventListener("click", this.handleControlClick);
     });
   };
 
-  destroyEventListeners = () => {
-    this.input.removeEventListener("click", this.handleInputClick);
+  removeEventListeners = () => {
+    this.input.removeEventListener("keydown", this.#_handleInputKeydown);
 
     this.controls.forEach((control) => {
       control.removeEventListener("click", this.handleControlClick);
     });
   };
 
-  handleInputClick = (evt: MouseEvent) => {};
+  #_handleInputKeydown = (evt: KeyboardEvent) => {
+    if (
+      evt.code === "Space" ||
+      evt.code === "Enter" ||
+      evt.code === "ArrowUp" ||
+      evt.code === "ArrowDown"
+    ) {
+      evt.preventDefault();
+      this.input.click();
+    }
+  };
 
   handleControlClick = (evt: MouseEvent) => {
     evt.preventDefault();
