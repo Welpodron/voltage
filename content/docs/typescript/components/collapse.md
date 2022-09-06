@@ -71,22 +71,6 @@ draft: false
 
 </div>
 
-<div class="v-alert v-alert--danger">
-<div class="v-alert__header">
-<span class="v-alert__title">Внимание</span>
-<button data-tooltip aria-label="Закрыть" class="v-btn v-btn--danger" type="button">
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="24" height="24">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m-15 0l15 15" />
-</svg>
-</button>
-</div>
-<div class="v-alert__body">
-<p class="v-alert__text"> 
-Перед подключением компонента убедитесь, что все необходимые для требуемого компонента зависимости установлены и подключены!
-</p>
-</div>
-</div>
-
 ## Инициализация компонента
 
 {{< showcase lang="TypeScript">}}

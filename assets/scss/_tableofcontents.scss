@@ -1,60 +1,60 @@
 .v-table-of-contests {
-    display: none;
-    border-left: var(--v-size-2) solid var(--v-theme-surface-3);
-    padding: var(--v-size-32);
-    position: sticky;
-    overflow: visible;
-    // max-height: calc(var(--v-size-view-h) - var(--v-size-16));
-    top: var(--v-size-16);
-    align-self: flex-start;
+  display: none;
+  border-left: var(--v-size-2) solid var(--v-theme-surface-3);
+  padding: var(--v-size-32);
+  position: sticky;
+  overflow: visible;
+  // max-height: calc(var(--v-size-view-h) - var(--v-size-16));
+  top: var(--v-size-16);
+  align-self: flex-start;
 
-    min-width: var(--v-size-256);
-    width: var(--v-size-256);
-    flex-shrink: var(--v-size-0);
-    max-width: var(--v-size-256);
+  min-width: var(--v-size-256);
+  width: var(--v-size-256);
+  flex-shrink: var(--v-size-0);
+  max-width: var(--v-size-256);
 
-    font-weight: var(--v-font-weight-5);
+  font-weight: var(--v-font-weight-5);
 }
 
 @media (min-width: 1200px) {
-    .v-table-of-contests {
-        display: block;
-    } 
+  .v-table-of-contests {
+    display: block;
+  }
 }
 
 .v-table-of-contests__container {
-    width: var(--v-size-100-p);
-    max-height: calc(var(--v-size-view-h) - var(--v-size-16));
-    overflow-y: auto;
+  width: var(--v-size-100-p);
+  max-height: calc(var(--v-size-view-h) - var(--v-size-16));
+  overflow-y: auto;
 }
 
 .v-table-of-contests__list {
-    margin-left: 0;
-    list-style: none;
-    display: grid;
-    gap: var(--v-size-16);
+  margin-left: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--v-size-16);
 }
 
 .v-table-of-contests__nav {
-    display: grid;
-    gap: var(--v-size-16);
+  display: grid;
+  gap: var(--v-size-16);
 }
 
 .v-table-of-contests__item {
-    display: grid;
-    gap: var(--v-size-16);
+  display: grid;
+  gap: var(--v-size-16);
 }
 
 .v-table-of-contests__list .v-table-of-contests__list {
-    padding-left: var(--v-size-16);
+  padding-left: var(--v-size-16);
 }
 
 .v-table-of-contests__link {
-    display: block;
-    padding: var(--v-size-8);
+  display: block;
+  padding: var(--v-size-8);
 }
 
 .v-table-of-contests__link[aria-current] {
-    color: var(--v-theme-brand);
-    background: var(--v-theme-surface-2);
+  color: var(--v-theme-brand);
+  background: var(--v-theme-surface-2);
 }

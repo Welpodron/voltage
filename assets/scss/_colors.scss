@@ -1,13 +1,13 @@
 $start-colors: (
   "white": #ffffff,
-  "black":  #404040,
-  "red": #ec7669,
+  "black": #404040,
+  "red": #dd2c00,
   "orange": #ffa55b,
-  "yellow": #f7db6e,
-  "green": #7ee2a8,
-  "cyan": #6ee0f7,
-  "blue": #5c7cfa,
-  "purple": #ba86d0
+  "yellow": #ffea00,
+  "green": #76ff03,
+  "cyan": #00e5ff,
+  "blue": #2962ff,
+  "purple": #ba86d0,
 );
 
 :root {
@@ -19,7 +19,7 @@ $start-colors: (
         $step: 5;
       }
 
-      $converted: mix(#000, $color-value, $step*$i);
+      $converted: mix(#000, $color-value, $step * $i);
       --v-#{$color}-#{$i+1}: #{$converted};
     }
   }
@@ -34,8 +34,8 @@ $start-colors: (
   --v-theme-success-2: var(--v-green-3);
   --v-theme-danger-1: var(--v-red-1);
   --v-theme-danger-2: var(--v-red-2);
-  --v-theme-warning-1: var(--v-yellow-2);
-  --v-theme-warning-2: var(--v-yellow-3);
+  --v-theme-warning-1: var(--v-yellow-1);
+  --v-theme-warning-2: var(--v-yellow-2);
   --v-theme-info-1: var(--v-cyan-2);
   --v-theme-info-2: var(--v-cyan-3);
   --v-theme-surface-1: var(--v-white-1);
@@ -43,8 +43,6 @@ $start-colors: (
   --v-theme-surface-3: var(--v-white-3);
   --v-theme-surface-4: var(--v-white-4);
 }
-
-
 
 html body {
   color-scheme: light;

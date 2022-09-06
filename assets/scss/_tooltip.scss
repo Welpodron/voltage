@@ -1,13 +1,70 @@
 [data-tooltip-control] {
-    position: absolute;
-    overflow: hidden;
-    white-space: nowrap;
-    pointer-events: none;
-} 
+  position: absolute;
+  overflow: hidden;
+  white-space: nowrap;
+  pointer-events: none;
 
-.v-tooltip {
-    font-weight: var(--v-font-weight-5);
-    padding: var(--v-size-8);
-    border-radius: var(--v-size-4);
-    background-color: var(--v-theme-surface-4);
+  font-weight: var(--v-font-weight-5);
+  font-size: var(--v-size-16);
+  padding: var(--v-size-8);
+  //   border-radius: var(--v-size-4);
+  background-color: var(--v-theme-surface-4);
+
+  max-width: var(--v-size-256);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  box-shadow: 0px 4px 8px rgba(16, 24, 64, 0.08);
+}
+
+.v-tooltip--small {
+  font-size: 12px;
+  padding: var(--v-size-4);
+}
+
+.v-tooltip--large {
+  font-size: 18px;
+  padding: 10px;
+}
+
+.v-tooltip--primary {
+  background-color: var(--v-theme-primary-2);
+  color: var(--v-white-1);
+}
+
+.v-tooltip--secondary {
+  background-color: var(--v-gray-2);
+}
+
+.v-tooltip--danger {
+  background-color: var(--v-theme-danger-2);
+  color: var(--v-white-1);
+}
+
+.v-tooltip--warning {
+  background-color: var(--v-theme-warning-2);
+}
+
+.v-tooltip--success {
+  background-color: var(--v-theme-success-2);
+}
+
+.v-tooltip--info {
+  background-color: var(--v-theme-info-2);
+}
+
+.v-tooltip--transparent {
+  background-color: transparent;
+}
+
+.v-tooltip--white {
+  color: var(--v-theme-text-1);
+  background-color: var(--v-theme-surface-1);
+}
+
+.v-tooltip--black {
+  color: var(--v-theme-surface-1);
+  background-color: var(--v-theme-text-1);
 }

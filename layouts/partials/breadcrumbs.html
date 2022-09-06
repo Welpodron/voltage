@@ -12,7 +12,8 @@
   class="v-breadcrumbs__item {{ if eq .p1 .p2 }}v-breadcrumbs__item--active{{ end }}"
 >
   {{if eq .p1 .p2}}
-  <span class="v-breadcrumbs__link v-breadcrumbs__link--active"
+  <span
+    class="v-breadcrumbs__link v-breadcrumbs__link--active v-badge v-badge--primary"
     >{{ .p1.Title }}</span
   >
   {{else}} {{if (eq .p1 .p2.FirstSection)}}

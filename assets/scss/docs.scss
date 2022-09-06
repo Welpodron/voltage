@@ -10,6 +10,7 @@
 
 @import "grid";
 @import "btns";
+@import "badge";
 
 @import "logo";
 @import "shell";
@@ -22,48 +23,50 @@
 @import "link";
 
 img {
-    max-width: 100%;
-    height: auto;
+  max-width: 100%;
+  height: auto;
 }
 
-*, ::after, ::before {
-    box-sizing: border-box;
+*,
+::after,
+::before {
+  box-sizing: border-box;
 }
 
 html {
-    scroll-behavior: smooth;
-    overflow-wrap: break-word;
-    word-break: break-word;
+  scroll-behavior: smooth;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 body {
-    font-family: var(--v-font-family-sans);
-    line-height: var(--v-font-lineheight-2);
-    color: var(--v-theme-text-1);
-    background-color: var(--v-theme-surface-1);
+  font-family: var(--v-font-family-sans);
+  line-height: var(--v-font-lineheight-2);
+  color: var(--v-theme-text-1);
+  background-color: var(--v-theme-surface-1);
 }
 
 ::-webkit-scrollbar {
-    width: var(--v-size-16);
-    height: var(--v-size-16);
+  width: var(--v-size-16);
+  height: var(--v-size-16);
 }
 
 ::-webkit-scrollbar-track {
-    background-color: var(--v-theme-surface-2);
+  background-color: var(--v-theme-surface-2);
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: var(--v-theme-surface-4);
+  background-color: var(--v-theme-surface-4);
 }
 
 h1 {
-    font-size: var(--v-font-size-7);
-    font-weight: var( --v-font-weight-7);
+  font-size: var(--v-font-size-7);
+  font-weight: var(--v-font-weight-7);
 }
 
 h2 {
-    font-size: var(--v-font-size-5);
-    font-weight: var( --v-font-weight-7);  
+  font-size: var(--v-font-size-5);
+  font-weight: var(--v-font-weight-7);
 }
 
 @import "selectbox";
@@ -79,59 +82,59 @@ h2 {
 @import "forms";
 
 .TIME_EXAMPLE {
-    display: flex;
-    align-items: flex-start;
+  display: flex;
+  align-items: flex-start;
 }
 
 .TIME_EXAMPLE .v_roulette {
-    flex-grow: 1;
-    flex-basis: calc(100%/3);
-    margin-right: 8px;
+  flex-grow: 1;
+  flex-basis: calc(100% / 3);
+  margin-right: 8px;
 }
 
 .v_roulette-dialog {
-    box-shadow: var(--shadow-3);
-    background: var(--v-theme-surface-1);
-    border: 0;
-    // display: grid;
+  box-shadow: var(--shadow-3);
+  background: var(--v-theme-surface-1);
+  border: 0;
+  // display: grid;
 
-    padding: var(--v-size-8);
-    // min-width: 64px;
-    // max-width: 256px;
-    overflow: auto;
-    max-height: var(--v-size-256);
+  padding: var(--v-size-8);
+  // min-width: 64px;
+  // max-width: 256px;
+  overflow: auto;
+  max-height: var(--v-size-256);
 }
 
 .v_roulette-dialog__dialog-container {
-    display: grid;
-    gap: var(--v-size-8);
+  display: grid;
+  gap: var(--v-size-8);
 }
 
 .v_roulette {
-    display: grid;
-    gap: 4px;
+  display: grid;
+  gap: 4px;
 }
 
 .v_roulette__body::-webkit-scrollbar {
-    display: none !important;
+  display: none !important;
 }
 
 .v_roulette__body {
-    font-size: 14px;
-    max-height: 135px;
-    display: grid;
-    gap: 4px;
-    overflow-y: scroll;
-    scroll-snap-type: y proximity;
+  font-size: 14px;
+  max-height: 135px;
+  display: grid;
+  gap: 4px;
+  overflow-y: scroll;
+  scroll-snap-type: y proximity;
 
-    -ms-overflow-style: none !important;  /* IE and Edge */
-    scrollbar-width: none !important;  /* Firefox */
+  -ms-overflow-style: none !important; /* IE and Edge */
+  scrollbar-width: none !important; /* Firefox */
 }
 
 .v_roulette button {
-    // width: 100%;
-    background: transparent;
-    padding: 8px;
-    border: 0;
-    background: var(--v-theme-surface-1);
+  // width: 100%;
+  background: transparent;
+  padding: 8px;
+  border: 0;
+  background: var(--v-theme-surface-1);
 }

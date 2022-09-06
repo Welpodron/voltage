@@ -97,7 +97,7 @@ document.addEventListener(
     document
       .querySelectorAll("[data-tooltip][aria-label]")
       .forEach((element) => {
-        new Tooltip(<HTMLElement>element, { tooltipElClass: "v-tooltip" });
+        new Tooltip(<HTMLElement>element);
       });
 
     document.querySelectorAll("[data-btn-scroll-to-top]").forEach((element) => {

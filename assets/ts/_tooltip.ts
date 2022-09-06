@@ -27,7 +27,13 @@ export class Tooltip {
     };
 
     this.config = config;
-    this.params = { ...defaultTooltipParams, ...params };
+
+    this.params = { ...defaultTooltipParams };
+
+    this.params.tooltipElClass =
+      control.getAttribute("data-tooltip-class") || undefined;
+
+    this.params = { ...this.params, ...params };
 
     this.#_removeEventListeners();
     this.#_initEventListeners();
@@ -106,7 +112,9 @@ export class Tooltip {
     this.config.element.setAttribute("data-tooltip-control", "");
 
     if (this.params.tooltipElClass) {
-      this.config.element.classList.add(this.params.tooltipElClass);
+      this.config.element.classList.add(
+        ...this.params.tooltipElClass.split(" ")
+      );
     }
 
     const {

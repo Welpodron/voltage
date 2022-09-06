@@ -1,51 +1,65 @@
 .v-btn {
-    cursor: pointer;
-    display: inline-flex;
-    text-align: left;
-    align-items: center;
-    border: var(--v-size-0);
-    border-radius: var(--v-size-4);
-    padding: var(--v-size-8);
-    justify-content: space-between;
-    background: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  text-align: left;
+  align-items: center;
+  border: var(--v-size-0);
+  // border-radius: var(--v-size-4);
+  padding: var(--v-size-8);
+  justify-content: space-between;
+  background: transparent;
+  font-weight: var(--v-font-weight-5);
 }
 
 .v-btn__icon {
-    flex-shrink: 0;
-    margin-left: var(--v-size-8);
-}
-
-.v-btn--primary {
-    background: var(--v-theme-primary-1);
-    color: var(--v-white-1);
-}
-
-.v-btn--danger {
-    background: var(--v-theme-danger-2);
+  flex-shrink: 0;
+  margin-left: var(--v-size-8);
 }
 
 .v-btn--full {
-    width: var(--v-size-100-p);
-}
-
-.v-btn--secondary {
-    background: var(--v-gray-2);
+  width: var(--v-size-100-p);
 }
 
 [data-btn-scroll-to-top] {
-    opacity: 0;
-    visibility: hidden;
-    position: fixed;
-    right: var(--v-size-32);
-    bottom: var(--v-size-32);
-    transition: visibility 0.2s ease, opacity 0.2s ease;
+  opacity: 0;
+  visibility: hidden;
+  position: fixed;
+  right: var(--v-size-32);
+  bottom: var(--v-size-32);
+  transition: visibility 0.2s ease, opacity 0.2s ease;
 }
 
 [data-btn-scroll-to-top][data-btn-scroll-to-top-active] {
-    opacity: 1;
-    visibility: visible;
+  opacity: 1;
+  visibility: visible;
 }
 
 [data-btn-theme-switcher] > * {
-    pointer-events: none !important;
+  pointer-events: none !important;
+}
+
+.v-btn--primary {
+  background: var(--v-theme-primary-2);
+  color: var(--v-white-1);
+}
+
+.v-btn--secondary {
+  background: var(--v-theme-surface-4);
+}
+
+.v-btn--danger {
+  background: var(--v-theme-danger-2);
+  color: var(--v-white-1);
+}
+
+.v-btn--warning {
+  background: var(--v-theme-warning-2);
+}
+
+.v-btn--success {
+  background: var(--v-theme-success-2);
+}
+
+.v-btn--info {
+  background: var(--v-theme-info-2);
 }

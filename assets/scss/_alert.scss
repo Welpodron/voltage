@@ -1,34 +1,101 @@
 .v-alert {
-    position: relative;
-    background: var(--v-theme-surface-2);
+  position: relative;
+  background: var(--v-theme-surface-2);
+
+  &__title {
+    display: inline-flex;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: var(--v-size-8);
+  }
+
+  &__title-text {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__title-icon-left {
+    flex-shrink: 0;
+    margin-right: var(--v-size-8);
+  }
+
+  &__title-icon-right {
+    flex-shrink: 0;
+    margin-left: var(--v-size-8);
+  }
 }
 
 .v-alert::before {
-    content: "";
-    width: var(--v-size-8);
-    background: var(--v-theme-surface-3);
-    height: 100%;
-    position: absolute;
-    left: var(--v-size-0);
-    top: var(--v-size-0);
+  content: "";
+  width: var(--v-size-8);
+  background: var(--v-theme-surface-3);
+  height: 100%;
+  position: absolute;
+  left: var(--v-size-0);
+  top: var(--v-size-0);
 }
 
 .v-alert__header {
-    padding: var(--v-size-16) var(--v-size-16) 0 calc(var(--v-size-16) + var(--v-size-4));
-    font-weight: var(--v-font-weight-5);  
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  padding: var(--v-size-16) var(--v-size-16) 0
+    calc(var(--v-size-16) + var(--v-size-4));
+  font-weight: var(--v-font-weight-5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .v-alert__body {
-    padding: var(--v-size-16) var(--v-size-16) var(--v-size-16) calc(var(--v-size-16) + var(--v-size-4));
+  padding: var(--v-size-16) var(--v-size-16) var(--v-size-16)
+    calc(var(--v-size-16) + var(--v-size-4));
 }
 
-.v-alert.v-alert--danger::before {
-    background: var(--v-red-2);
+.v-alert > :last-child {
+  padding-bottom: var(--v-size-16);
 }
 
 .v-alert--danger {
-    background: var(--v-red-1);
+  background: var(--v-theme-danger-1);
+
+  color: var(--v-white-1);
+
+  &::before {
+    background: var(--v-theme-danger-2);
+  }
+}
+
+.v-alert--warning {
+  background: var(--v-theme-warning-1);
+
+  &::before {
+    background: var(--v-theme-warning-2);
+  }
+}
+
+.v-alert--success {
+  background: var(--v-theme-success-1);
+
+  &::before {
+    background: var(--v-theme-success-2);
+  }
+}
+
+.v-alert--info {
+  background: var(--v-theme-info-1);
+
+  &::before {
+    background: var(--v-theme-info-2);
+  }
+}
+
+.v-alert--primary {
+  background: var(--v-theme-primary-1);
+
+  color: var(--v-theme-surface-1);
+
+  &::before {
+    background: var(--v-theme-primary-2);
+  }
 }
