@@ -7,7 +7,7 @@ draft: false
 ## Демонстрация работы компонента
 
 <div>
-<v-wc-magnifier data-img="/images/freya-ingva-6P9JgFe3f9Q-unsplash.jpg"></v-wc-magnifier>
+<v-wc-magnifier data-img="{{< site-base-url >}}/images/freya-ingva-6P9JgFe3f9Q-unsplash.jpg"></v-wc-magnifier>
 </div>
 
 <div class="v-code">
