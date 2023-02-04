@@ -1,4 +1,4 @@
-name: github pages
+name: Публикация проекта на Github Pages
 
 on:
   push:
@@ -14,14 +14,20 @@ jobs:
         with:
           submodules: true
           fetch-depth: 0
-      - name: Setup Hugo
+      - name: Установка Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "latest"
+      - name: Установка Node зависимостей
+        run: npm install
+      - name: Установка Hugo
         uses: peaceiris/actions-hugo@v2
         with:
           hugo-version: "latest"
           extended: true
-      - name: Build
+      - name: Сборка Hugo
         run: hugo --minify
-      - name: Deploy
+      - name: Размещение на GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
