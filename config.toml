@@ -1,6 +1,6 @@
-baseURL = 'example.com'
+baseURL = 'https://welpodron.github.io/voltage'
 languageCode = 'ru'
-title = 'My New Hugo Site'
+title = 'Voltage'
 [build]
   noJSConfigInAssets = true
 [markup]
